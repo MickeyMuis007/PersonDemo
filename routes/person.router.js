@@ -19,9 +19,10 @@ router.delete(`${url}/:id`, controller.deletePerson);
 // Friend Routes
 router.get(`${url}/:id/friend`);            // Get all friends for person
 router.get(`${url}/:id/friend/:friend_id`); // Get friend by id
-router.put(`${url}/:id/friend/:friend_id`); // Udate Friend
+router.put('/update-friend', controller.updateFriend); // Update Friend
 router.get('/most-popular-friend', controller.findMostPopularFriend);
-router.get('/most-popular-tag-males');
-router.get('/most-popular-tag-females');
+router.get('/males', controller.findMostPopularTagMales);
+router.get('/females', controller.findMostPopularTagFemales);
+router.get('/find-friend', controller.findFriend);
 
 module.exports = router;

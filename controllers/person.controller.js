@@ -55,3 +55,48 @@ exports.findMostPopularFriend = (req, res, next) => {
       res.status(500).send('Error Occurred');
     });
 }
+
+exports.findMostPopularTagFemales = (req, res, next) => {
+  Person.findMostPopularTagForFemales()
+  .then( tags => {
+    res.send(tags);
+  }).catch( error => {
+    console.log(error);
+    res.status(500).send('Error Occurred');
+  })
+}
+
+exports.findMostPopularTagMales = (req, res, next) => {
+  Person.findMostPopularTagForMales()
+  .then( tags => {
+    res.send(tags);
+  }).catch( error => {
+    console.log(error);
+    res.status(500).send('Error Occurred');
+  })
+}
+
+exports.updateFriend =(req, res, next) => {
+  //console.log(req.body);
+  Person.updateFriend(req.body)
+  .then(result => {
+      res.send(result);
+    }
+  ).catch( error => {
+    console.log(error);
+    res.status(500).send('Error Occurred');
+  })
+  
+}
+
+exports.findFriend = (req, res, next) => {
+
+  Person.findFriend(req.query)
+  .then( result => {
+      res.send(result);
+  }).catch( err => {
+    console.log(err);
+    res.status(500).send('Internal server error');
+  });
+}
+

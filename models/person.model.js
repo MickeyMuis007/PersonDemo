@@ -102,14 +102,57 @@ class Person {
 
   static findMostPopularTagForMales() {
     console.log('Find most popular male tags');
+    const db = getDb();
+    return db.collection('persons')
+          .aggregate([
+            {$unwind: "$tags"},
+            {$project: {tags: 1, gender: 1, name: 1}},
+            {$match: {gender: "male"}},
+            {$group: {
+                _id: {tags: "$tags"}, 
+                totalTags: {$sum: 1},
+                gender: {$first: "$gender"}
+              }
+          },
+          {$sort: {totalTags: -1}}
+          
+          ]).toArray();
   }
 
   static findMostPopularTagForFemales() {
     console.log('Find most popluar female tags');
+
+    const db = getDb();
+    return db.collection('persons')
+          .aggregate([
+            {$unwind: "$tags"},
+            {$project: {tags: 1, gender: 1, name: 1}},
+            {$match: {gender: "female"}},
+            {$group: {
+                _id: {tags: "$tags"}, 
+                totalTags: {$sum: 1},
+                gender: {$first: "$gender"}
+              }
+          },
+          {$sort: {totalTags: -1}}
+          
+          ]).toArray();
   }
 
-  static updateFriend(mainFriend, searchFriend, replaceFriend) {
-    console.loe('Update friend');
+  static updateFriend(fromBody) {
+    console.log('Update friend');
+
+    const db = getDb();
+    return db.collection('persons')
+          .updateOne({name: fromBody.mainName, "friends.name": fromBody.friend}, {$set: {"friends.$.name": fromBody.updateName}})
+  }
+
+
+  static findFriend(query){
+    console.log('Find works! ', query);
+    const db = getDb();
+    return db.collection('persons')
+          .findOne({name: query.mainName, "friends.name": query.friend})
   }
 }
 
