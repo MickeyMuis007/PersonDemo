@@ -42,6 +42,16 @@ exports.addPerson = (req, res, next) => {
     });
 }
 
+exports.addManyPeople = (req, res, next) => {
+  Person.addManyPeople(req.body.people)
+    .then(result => {
+      res.send(result);
+    }).catch(err => {
+      console.log(err);
+      res.status(500).send('Error Occurred');
+    });
+}
+
 exports.updatePerson = (req, res, next) => {
   const person = new Person(req.body);
   person.update();

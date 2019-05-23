@@ -13,6 +13,7 @@ router.get(`${url}/:id`, controller.getPerson);
 router.get('/person-by-name/:name', controller.getPersonByName);
 
 router.post(url, controller.addPerson);
+router.post(`${url}/many`, controller.addManyPeople);
 
 router.put(`${url}/:id`, controller.updatePerson);
 

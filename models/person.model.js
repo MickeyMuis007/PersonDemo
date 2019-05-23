@@ -34,6 +34,13 @@ class Person {
     console.log('Update person');
   }
 
+  static addManyPeople(people) {
+    console.log('Insert many');
+    const db = getDb();
+    return db.collection('persons')
+      .insertMany(people);
+  }
+
   static deleteById(id) {
     console.log('Delete person');
   }
