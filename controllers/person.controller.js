@@ -1,7 +1,7 @@
 const Person = require('../models/person.model');
 
 exports.getPersons = (req, res, next) => {
-  Person.find().then(people => {
+  Person.find(req.query).then(people => {
     res.send(people);
   }).catch(err => {
     console.log(err);
@@ -20,6 +20,15 @@ exports.getPerson = (req, res, next) => {
       console.log(err);
       res.status(500).send('Error Occurred');
     });
+}
+
+exports.getPersonByName = (req, res, next) => {
+  Person.findByName(req.params.name)
+    .then(person => {
+      if (!person)
+        return res.status(404).send();
+      return res.send(person);
+    })
 }
 
 exports.addPerson = (req, res, next) => {

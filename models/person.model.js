@@ -38,11 +38,16 @@ class Person {
     console.log('Delete person');
   }
 
-  static find() {
+  static find(query) {
     console.log('Find people');
     const db = getDb();
+    let filter = {}
+    if (query) {
+      filter = Object.keys(query).reduce((acc, key) => {acc[key] = +query[key] ; return acc; }, {})   // Changing values to 
+      console.log(filter)
+    }
     return db.collection('persons')
-      .find()
+      .find({}, {projection: filter})
       .toArray()
       .then(people => {
         console.log('\t- Successfully found people');

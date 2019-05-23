@@ -10,6 +10,8 @@ router.get(url, controller.getPersons);
 
 router.get(`${url}/:id`, controller.getPerson);
 
+router.get('/person-by-name/:name', controller.getPersonByName);
+
 router.post(url, controller.addPerson);
 
 router.put(`${url}/:id`, controller.updatePerson);
