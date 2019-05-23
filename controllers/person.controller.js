@@ -75,6 +75,17 @@ exports.findMostPopularFriend = (req, res, next) => {
     });
 }
 
+exports.findMostPopularTags = (req, res, next) => {
+  console.log(req.query);
+  Person.findMostPopularTags(req.query)
+  .then( tags => {
+    res.send(tags);
+  }).catch( error => {
+    console.log(error);
+    res.status(500).send('Error Occurred');
+  })
+}
+
 exports.findMostPopularTagFemales = (req, res, next) => {
   Person.findMostPopularTagForFemales()
   .then( tags => {
@@ -149,3 +160,13 @@ exports.addRandomColorToCollection = (req, res, next) => {
     });
 }
 
+exports.extractFiveRecords = (req, res, next) => {
+
+  Person.extractFiveRecords(req.body)
+  .then(result => {
+    res.send(result);
+  }).catch(err => {
+    console.log(err);
+    res.status(500).send('Internal server error');
+  });
+};

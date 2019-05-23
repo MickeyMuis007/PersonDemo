@@ -24,11 +24,16 @@ router.get(`${url}/:id/friend`);            // Get all friends for person
 router.get(`${url}/:id/friend/:friend_id`); // Get friend by id
 router.put('/update-friend', controller.updateFriend); // Update Friend
 router.get('/most-popular-friend', controller.findMostPopularFriend);
-router.get('/males', controller.findMostPopularTagMales);
+router.get('/males', controller.findMostPopularTagMales);  // create one gender
+router.get('/popular-tag', controller.findMostPopularTags);
 router.get('/females', controller.findMostPopularTagFemales);
 router.get('/find-friend', controller.findFriend);
 router.get('/extract-unique-friends/:collection', controller.extractUniqueFriends);
 router.get('/find-unique-friends/:collection', controller.findUniqueFriends);
 router.get('/add-random-color/:collection', controller.addRandomColorToCollection);
+ 
+// Extract five records
+router.post('/extract', controller.extractFiveRecords);
+
 
 module.exports = router;

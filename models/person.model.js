@@ -155,6 +155,45 @@ class Person {
       ]).toArray();
   }
 
+  static findMostPopularTags(query) {
+    console.log('Find most popluar gender tags');
+
+    const db = getDb();
+    return db.collection('persons')
+      .aggregate([
+        { $match: query },
+        { $unwind: "$tags" },
+        // Group by tags, because we want to get the total number for each tag
+        {
+          $group: {
+            _id: { tags: "$tags" },
+            total: { $sum: 1 },
+            tag_name: {$first: "$tags"},
+            gender: { $first: "$gender" }
+          }
+        },
+        // Group by total, put every tag with same total into one array
+        {
+          $group: {
+              _id: {total: "$total"},
+              gender: {$first: "$gender"},
+              total: {$first: "$total"},
+              docs: {$push: {
+                _id: "$_id",
+                tag_name: "$tag_name",
+                gender: "$gender",
+                }
+            }
+          }
+        },
+        { $sort: { total: -1 } },
+        {$limit: 1},
+        {$unwind: "$docs"},
+        {$project: {tag_Name: "$docs.tag_name", gender: 1, total: 1}}
+
+      ]).toArray();
+  }
+
   static updateFriend(fromBody) {
     console.log('Update friend');
 
@@ -186,6 +225,16 @@ class Person {
       },
       { $sort: { friend_name: 1}},
       { $out: collection }
+    ]).toArray();
+  }
+
+  static extractFiveRecords(body) {
+    console.log('Extract Five People!');
+    const db = getDb();
+    return db.collection(body.fromCollection)
+    .aggregate([
+      {$limit: 5},
+      { $out: body.toCollection }
     ]).toArray();
   }
 
