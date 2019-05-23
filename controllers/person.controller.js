@@ -129,3 +129,13 @@ exports.findUniqueFriends = (req, res, next) => {
     });
 }
 
+exports.addRandomColorToCollection = (req, res, next) => {
+  Person.addRandomColor(req.params.collection)
+    .then(result => {
+      res.send(result);
+    }).catch( err => {
+      console.log(err);
+      res.status(500).send('Internal server error');
+    });
+}
+

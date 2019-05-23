@@ -181,6 +181,21 @@ class Person {
     ]).toArray();
   }
 
+  static addRandomColor(collection) {
+    console.log('Add random Colors to friends list')
+    const colors = ['blue', 'red', 'yellow','green', 'orange'];
+    const db = getDb();
+    return db.collection(collection)
+      .find().toArray().then(friends => {
+        friends.forEach(item => {
+          const randomColor = colors[Math.round(Math.random() * 4)];
+          console.log(randomColor);
+          
+          db.collection(collection).updateOne({ friend_name: item.friend_name },{$set: {color: randomColor}})
+        });
+      });
+  }
+
   static findUniqueFriends(collection, query) {
     let filter = {}
     if (query) {
