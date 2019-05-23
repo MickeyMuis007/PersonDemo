@@ -114,47 +114,6 @@ class Person {
       ]).toArray();
   }
 
-  static findMostPopularTagForMales() {
-    console.log('Find most popular male tags');
-    const db = getDb();
-    return db.collection('persons')
-      .aggregate([
-        { $unwind: "$tags" },
-        { $project: { tags: 1, gender: 1, name: 1 } },
-        { $match: { gender: "male" } },
-        {
-          $group: {
-            _id: { tags: "$tags" },
-            totalTags: { $sum: 1 },
-            gender: { $first: "$gender" }
-          }
-        },
-        { $sort: { totalTags: -1 } }
-
-      ]).toArray();
-  }
-
-  static findMostPopularTagForFemales() {
-    console.log('Find most popluar female tags');
-
-    const db = getDb();
-    return db.collection('persons')
-      .aggregate([
-        { $unwind: "$tags" },
-        { $project: { tags: 1, gender: 1, name: 1 } },
-        { $match: { gender: "female" } },
-        {
-          $group: {
-            _id: { tags: "$tags" },
-            totalTags: { $sum: 1 },
-            gender: { $first: "$gender" }
-          }
-        },
-        { $sort: { totalTags: -1 } }
-
-      ]).toArray();
-  }
-
   static findMostPopularTags(query) {
     console.log('Find most popluar gender tags');
 

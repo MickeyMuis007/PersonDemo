@@ -86,26 +86,6 @@ exports.findMostPopularTags = (req, res, next) => {
   })
 }
 
-exports.findMostPopularTagFemales = (req, res, next) => {
-  Person.findMostPopularTagForFemales()
-  .then( tags => {
-    res.send(tags);
-  }).catch( error => {
-    console.log(error);
-    res.status(500).send('Error Occurred');
-  })
-}
-
-exports.findMostPopularTagMales = (req, res, next) => {
-  Person.findMostPopularTagForMales()
-  .then( tags => {
-    res.send(tags);
-  }).catch( error => {
-    console.log(error);
-    res.status(500).send('Error Occurred');
-  })
-}
-
 exports.updateFriend =(req, res, next) => {
   //console.log(req.body);
   Person.updateFriend(req.body)
