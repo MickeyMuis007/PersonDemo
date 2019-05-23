@@ -184,6 +184,7 @@ class Person {
           friend_name: { $first: '$friend_name' }
         }
       },
+      { $sort: { friend_name: 1}},
       { $out: collection }
     ]).toArray();
   }
