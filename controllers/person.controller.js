@@ -131,7 +131,8 @@ exports.findUniqueFriends = (req, res, next) => {
 }
 
 exports.addRandomColorToCollection = (req, res, next) => {
-  Person.addRandomColor(req.params.collection)
+  //console.log("This works!");
+  Person.addRandomColor(req.body)
     .then(result => {
       res.send(result);
     }).catch( err => {

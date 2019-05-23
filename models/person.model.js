@@ -48,13 +48,13 @@ class Person {
   static find(query) {
     console.log('Find people');
     const db = getDb();
-    let filter = {}
+    let projection = {}
     if (query) {
-      filter = Object.keys(query).reduce((acc, key) => { acc[key] = +query[key]; return acc; }, {})   // Changing values to 
-      console.log(filter)
+      projection = Object.keys(query).reduce((acc, key) => { acc[key] = +query[key]; return acc; }, {})   // Changing values to 
+      console.log(projection)
     }
     return db.collection('persons')
-      .find({}, { projection: filter })
+      .find({}, { projection: projection })
       .toArray()
       .then(people => {
         console.log('\t- Successfully found people');
@@ -178,7 +178,7 @@ class Person {
       { $project: { friend_name: "$friends.name" } },
       {
         $group: {
-          _id: { friend_name: '$friend_name' },
+          _id: '$friend_name',
           friend_name: { $first: '$friend_name' }
         }
       },
@@ -197,17 +197,18 @@ class Person {
     ]).toArray();
   }
 
-  static addRandomColor(collection) {
+  static addRandomColor(body) {
     console.log('Add random Colors to friends list')
     const colors = ['blue', 'red', 'yellow','green', 'orange'];
     const db = getDb();
-    return db.collection(collection)
+    //console.log(collection);``
+    return db.collection(body.toCollection)
       .find().toArray().then(friends => {
         friends.forEach(item => {
           const randomColor = colors[Math.round(Math.random() * 4)];
           console.log(randomColor);
           
-          db.collection(collection).updateOne({ friend_name: item.friend_name },{$set: {color: randomColor}})
+          db.collection(body.toCollection).updateOne({ friend_name: item.friend_name },{$set: {color: randomColor}})
         });
       });
   }

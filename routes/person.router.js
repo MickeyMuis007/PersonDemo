@@ -28,7 +28,7 @@ router.get('/popular-tag', controller.findMostPopularTags);
 router.get('/find-friend', controller.findFriend);
 router.get('/extract-unique-friends/:collection', controller.extractUniqueFriends);
 router.get('/find-unique-friends/:collection', controller.findUniqueFriends);
-router.get('/add-random-color/:collection', controller.addRandomColorToCollection);
+router.put('/add-color-field-to-collection', controller.addRandomColorToCollection);
  
 // Extract five records
 router.post('/extract', controller.extractFiveRecords);
