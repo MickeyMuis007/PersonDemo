@@ -43,11 +43,11 @@ class Person {
     const db = getDb();
     let filter = {}
     if (query) {
-      filter = Object.keys(query).reduce((acc, key) => {acc[key] = +query[key] ; return acc; }, {})   // Changing values to 
+      filter = Object.keys(query).reduce((acc, key) => { acc[key] = +query[key]; return acc; }, {})   // Changing values to 
       console.log(filter)
     }
     return db.collection('persons')
-      .find({}, {projection: filter})
+      .find({}, { projection: filter })
       .toArray()
       .then(people => {
         console.log('\t- Successfully found people');
@@ -92,15 +92,17 @@ class Person {
     const db = getDb();
     return db.collection('persons')
       .aggregate([
-        { $unwind: '$friends'},
-        { $project: { name: 1, friend_name: '$friends.name' }},
-        { $group: { 
-          _id: { friend_name: '$friend_name'},
-          friend_name: {$first: "$friend_name"},
-          main_friend: {$first: '$name' },
-          total: {$sum: 1}
-        }},
-        { $sort: { total: -1}},
+        { $unwind: '$friends' },
+        { $project: { name: 1, friend_name: '$friends.name' } },
+        {
+          $group: {
+            _id: { friend_name: '$friend_name' },
+            friend_name: { $first: "$friend_name" },
+            main_friend: { $first: '$name' },
+            total: { $sum: 1 }
+          }
+        },
+        { $sort: { total: -1 } },
         { $limit: 5 }
       ]).toArray();
   }
@@ -109,19 +111,20 @@ class Person {
     console.log('Find most popular male tags');
     const db = getDb();
     return db.collection('persons')
-          .aggregate([
-            {$unwind: "$tags"},
-            {$project: {tags: 1, gender: 1, name: 1}},
-            {$match: {gender: "male"}},
-            {$group: {
-                _id: {tags: "$tags"}, 
-                totalTags: {$sum: 1},
-                gender: {$first: "$gender"}
-              }
-          },
-          {$sort: {totalTags: -1}}
-          
-          ]).toArray();
+      .aggregate([
+        { $unwind: "$tags" },
+        { $project: { tags: 1, gender: 1, name: 1 } },
+        { $match: { gender: "male" } },
+        {
+          $group: {
+            _id: { tags: "$tags" },
+            totalTags: { $sum: 1 },
+            gender: { $first: "$gender" }
+          }
+        },
+        { $sort: { totalTags: -1 } }
+
+      ]).toArray();
   }
 
   static findMostPopularTagForFemales() {
@@ -129,19 +132,20 @@ class Person {
 
     const db = getDb();
     return db.collection('persons')
-          .aggregate([
-            {$unwind: "$tags"},
-            {$project: {tags: 1, gender: 1, name: 1}},
-            {$match: {gender: "female"}},
-            {$group: {
-                _id: {tags: "$tags"}, 
-                totalTags: {$sum: 1},
-                gender: {$first: "$gender"}
-              }
-          },
-          {$sort: {totalTags: -1}}
-          
-          ]).toArray();
+      .aggregate([
+        { $unwind: "$tags" },
+        { $project: { tags: 1, gender: 1, name: 1 } },
+        { $match: { gender: "female" } },
+        {
+          $group: {
+            _id: { tags: "$tags" },
+            totalTags: { $sum: 1 },
+            gender: { $first: "$gender" }
+          }
+        },
+        { $sort: { totalTags: -1 } }
+
+      ]).toArray();
   }
 
   static updateFriend(fromBody) {
@@ -149,15 +153,43 @@ class Person {
 
     const db = getDb();
     return db.collection('persons')
-          .updateOne({name: fromBody.mainName, "friends.name": fromBody.friend}, {$set: {"friends.$.name": fromBody.updateName}})
+      .updateOne({ name: fromBody.mainName, "friends.name": fromBody.friend }, { $set: { "friends.$.name": fromBody.updateName } })
   }
 
 
-  static findFriend(query){
+  static findFriend(query) {
     console.log('Find works! ', query);
     const db = getDb();
     return db.collection('persons')
-          .findOne({name: query.mainName, "friends.name": query.friend})
+      .findOne({ name: query.mainName, "friends.name": query.friend })
+  }
+
+  static extractUniqueFriends(collection) {
+    console.log('Extract Unique friends!');
+    const db = getDb();
+    return db.collection('persons')
+    .aggregate([
+      { $unwind: '$friends' },
+      { $project: { friend_name: "$friends.name" } },
+      {
+        $group: {
+          _id: { friend_name: '$friend_name' },
+          friend_name: { $first: '$friend_name' }
+        }
+      },
+      { $out: collection }
+    ]).toArray();
+  }
+
+  static findUniqueFriends(collection, query) {
+    let filter = {}
+    if (query) {
+      filter = Object.keys(query).reduce((acc, key) => { acc[key] = +query[key]; return acc; }, {})   // Changing values to 
+      console.log(filter)
+    }
+    const db = getDb();
+    return db.collection(collection)
+      .find({}, filter).toArray();
   }
 }
 

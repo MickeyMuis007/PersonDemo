@@ -26,5 +26,7 @@ router.get('/most-popular-friend', controller.findMostPopularFriend);
 router.get('/males', controller.findMostPopularTagMales);
 router.get('/females', controller.findMostPopularTagFemales);
 router.get('/find-friend', controller.findFriend);
+router.get('/extract-unique-friends/:collection', controller.extractUniqueFriends);
+router.get('/find-unique-friends/:collection', controller.findUniqueFriends);
 
 module.exports = router;

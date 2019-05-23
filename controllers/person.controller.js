@@ -109,3 +109,23 @@ exports.findFriend = (req, res, next) => {
   });
 }
 
+exports.extractUniqueFriends = (req, res, next) => {
+  Person.extractUniqueFriends(req.params.collection)
+    .then(result => {
+      res.send(result);
+    }).catch( err => {
+      console.log(err);
+      res.status(500).send('Internal server error');
+    });
+}
+
+exports.findUniqueFriends = (req, res, next) => {
+  Person.findUniqueFriends(req.params.collection, req.query)
+    .then(friends => {
+      res.send(friends);
+    }).catch( err => {
+      console.log(err);
+      res.status(500).send('Internal server error');
+    });
+}
+
