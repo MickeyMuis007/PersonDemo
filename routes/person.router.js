@@ -1,3 +1,4 @@
+// All our routes are handled here
 const express = require('express');
 
 const controller = require('../controllers/person.controller');
