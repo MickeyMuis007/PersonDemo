@@ -1,3 +1,4 @@
+// This is a person model
 const getDb = require('../util/database').getDb;
 const mongodb = require('mongodb');
 
