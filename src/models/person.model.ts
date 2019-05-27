@@ -1,7 +1,7 @@
 import mongodb, { ObjectId } from "mongodb";
 import * as database from "../util/database";
 
-class Person {
+export class Person {
 
     public static find(query: any) {
         console.log(`Delete person`);
@@ -15,7 +15,7 @@ class Person {
             console.log(projection);
         }
 
-        return db.collection("persons")
+        return db.collection("people")
                .find({}, {projection})
                .toArray()
                .then((people: any) => {
@@ -162,7 +162,8 @@ class Person {
         return db.collection(collection)
           .find({}, filter).toArray();
       }
-
+    
+    //public _id: any;
     public name: string;
     public gender: string;
     public eyeColor: string;
@@ -177,6 +178,7 @@ class Person {
             person = {};
         }
 
+        //this._id = person._id;
         this.name = person.name;
         this.gender = person.gender;
         this.eyeColor = person.eyeColor;
