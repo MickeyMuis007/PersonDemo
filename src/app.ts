@@ -1,5 +1,6 @@
 import dotenv from "dotenv";
 import express from "express";
+import * as database from './util/database';
 
 // intialize configuration
 dotenv.config();
@@ -11,6 +12,8 @@ app.use("/", (req, res) => {
   res.send("Hello world!");
 });
 
-app.listen(port, () => {
-  console.log(`server start at http://localhost:${ port }`);
-});
+database.mongoConnect((client: any) => {
+  app.listen(port, () => {
+    console.log(`server start at http://localhost:${port}`);
+  });
+})
