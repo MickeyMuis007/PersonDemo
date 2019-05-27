@@ -88,18 +88,33 @@ export class PersonController {
   }
 
   public findFriend = (req: any, res: any) => {
-    console.log("Person Controller -> Find Friend");
-    res.send("Find friend");
+    Person.findFriend(req.query)
+    .then( (result: any) => {
+      res.send(result);
+    }).catch((err: any) => {
+    console.log(err);
+    res.status(500).send('Internal server error');
+  });
   }
 
   public extractUniqueFriends = (req: any, res: any) => {
-    console.log("Person Controller -> extractUniqueFriends");
-    res.send("extractUniqueFriends");
+    Person.extractUniqueFriends(req.params.collection)
+    .then((result:any) => {
+      res.send(result);
+    }).catch((err:any) => {
+      console.log(err);
+      res.status(500).send('Internal server error');
+    });
   }
 
   public findUniqueFriends = (req: any, res: any) => {
-    console.log("Person Controller -> findUniqueFriends");
-    res.send("findUniqueFriends");
+    Person.findUniqueFriends(req.params.collection, req.query)
+    .then((friends:any) => {
+      res.send(friends);
+    }).catch((err:any) => {
+      console.log(err);
+      res.status(500).send('Internal server error');
+    });
   }
 
   public addRandomColorToCollection = (req: any, res: any) => {
@@ -108,7 +123,12 @@ export class PersonController {
   }
 
   public extractFiveRecords = (req: any, res: any) => {
-    console.log("Person Controller -> extractFiveRecords");
-    res.send("extractFiveRecords");
+    Person.extractFiveRecords(req.body)
+    .then((result:any) => {
+    res.send(result);
+    }).catch((err:any) => {
+    console.log(err);
+    res.status(500).send('Internal server error');
+    });
   }
 }
