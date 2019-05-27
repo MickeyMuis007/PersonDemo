@@ -1,9 +1,15 @@
 import { Person } from "../models/person.model";
+import { PersonView } from "../models/viewModels/person.view-model";
+
 export class PersonController {
   public getPersons = (req: any, res: any) => {
     console.log("Get Persons Controller");
     Person.find(req.query).then((people: any) => {
-      res.send(people);
+      const mapPeople = people.map((person: any) => {
+        
+        return new PersonView(person);
+      })
+      res.send(mapPeople);
     }).catch((err: any) => {
       console.log(err);
       res.status(500).send("Error Occurred");
@@ -56,7 +62,7 @@ export class PersonController {
    }
 
   public deletePerson = (req: any, res: any) => {
-    
+    console.log("delete person");
   }
 
   /* Friend Controller Methods */
@@ -92,27 +98,27 @@ export class PersonController {
       res.send(result);
     }).catch((err: any) => {
     console.log(err);
-    res.status(500).send('Internal server error');
+    res.status(500).send("Internal server error");
   });
   }
 
   public extractUniqueFriends = (req: any, res: any) => {
     Person.extractUniqueFriends(req.params.collection)
-    .then((result:any) => {
+    .then((result: any) => {
       res.send(result);
-    }).catch((err:any) => {
+    }).catch((err: any) => {
       console.log(err);
-      res.status(500).send('Internal server error');
+      res.status(500).send("Internal server error");
     });
   }
 
   public findUniqueFriends = (req: any, res: any) => {
     Person.findUniqueFriends(req.params.collection, req.query)
-    .then((friends:any) => {
+    .then((friends: any) => {
       res.send(friends);
-    }).catch((err:any) => {
+    }).catch((err: any) => {
       console.log(err);
-      res.status(500).send('Internal server error');
+      res.status(500).send("Internal server error");
     });
   }
 
@@ -123,11 +129,11 @@ export class PersonController {
 
   public extractFiveRecords = (req: any, res: any) => {
     Person.extractFiveRecords(req.body)
-    .then((result:any) => {
+    .then((result: any) => {
     res.send(result);
-    }).catch((err:any) => {
+    }).catch((err: any) => {
     console.log(err);
-    res.status(500).send('Internal server error');
+    res.status(500).send("Internal server error");
     });
   }
 }
