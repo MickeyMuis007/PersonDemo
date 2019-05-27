@@ -56,8 +56,7 @@ export class PersonController {
    }
 
   public deletePerson = (req: any, res: any) => {
-    console.log("Delete Person");
-    res.send("Delete Person");
+    
   }
 
   /* Friend Controller Methods */
