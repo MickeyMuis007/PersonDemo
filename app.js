@@ -10,8 +10,6 @@ const port = 3000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.get('/', (req, res, next) => res.send('Hi there'));
-
 app.use(personRouter);
 
 app.use((req, res, next) => {
