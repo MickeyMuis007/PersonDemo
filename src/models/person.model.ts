@@ -1,61 +1,39 @@
-import * as database from "../util/database";
 import mongodb, { ObjectId } from "mongodb";
+import * as database from "../util/database";
 
-class Person{
+class Person {
 
-    name: string;
-    gender: string;
-    eyeColor: string;
-    company: string;
-    email: string;
-    tags: string[];
-    friends: string[];
-    
-    // creating a constructor
-    constructor(person: any){
-        if(!person)
-            person = {};
-
-        this.name = person.name;
-        this.gender = person.gender;
-        this.eyeColor = person.eyeColor;
-        this.company = person.company;
-        this.email = person.email;
-        this.tags = person.tags;
-        this.friends = person.tags;
-        
-    }
-
-    static find(query: any){
-        console.log(`Delete person`)
+    public static find(query: any) {
+        console.log(`Delete person`);
         const db = database.getDb();
 
-        let projection = {}
+        let projection = {};
 
-        if(query){
-            projection = Object.keys(query).reduce((acc: any, key) => { acc[key] = +query[key]; return acc; }, {})   // Changing values to 
-            console.log(projection)
+        if (query) {
+            // Changing values to
+            projection = Object.keys(query).reduce((acc: any, key) => { acc[key] = +query[key]; return acc; }, {});
+            console.log(projection);
         }
 
-        return db.collection('persons')
-               .find({}, {projection: projection})
+        return db.collection("persons")
+               .find({}, {projection})
                .toArray()
                .then((people: any) => {
-                   console.log('Successfully found people');
+                   console.log("Successfully found people");
                    return people;
                });
 
     }
 
-    static findById(id : number){
+    public static findById(id: number) {
         console.log(`Find person by id`);
-        if(!ObjectId.isValid(id)){
+        if (!ObjectId.isValid(id)) {
             return new Promise((resolve) => {
                 resolve();
             });
         }
         const db = database.getDb();
-        return db.collection('persons')
+        return db.collection("persons")
             .findOne({
                 $or: [
                     {_id: id},
@@ -65,32 +43,32 @@ class Person{
             .then((person: any) => {
                 console.log(`Successfully found a person`);
                 return person;
-            })
+            });
     }
 
-    static findByName(name: string){
-        console.log('Find person by name');
+    public static findByName(name: string) {
+        console.log("Find person by name");
         const db = database.getDb();
-        return db.collection('persons')
-            .findOne({ name: name })
-            .then((person : any) => {
-        console.log('\t- Successfully found person');
+        return db.collection("persons")
+            .findOne({ name })
+            .then((person: any) => {
+        console.log("\t- Successfully found person");
         return person;
       });
     }
 
-    static findMostPopularFriend() {
-        console.log('Find Most popular friend');
+    public static findMostPopularFriend() {
+        console.log("Find Most popular friend");
         const db = database.getDb();
-        return db.collection('persons')
+        return db.collection("persons")
           .aggregate([
-            { $unwind: '$friends' },
-            { $project: { name: 1, friend_name: '$friends.name' } },
+            { $unwind: "$friends" },
+            { $project: { name: 1, friend_name: "$friends.name" } },
             {
               $group: {
-                _id: { friend_name: '$friend_name' },
+                _id: { friend_name: "$friend_name" },
                 friend_name: { $first: "$friend_name" },
-                main_friend: { $first: '$name' },
+                main_friend: { $first: "$name" },
                 total: { $sum: 1 }
               }
             },
@@ -99,11 +77,11 @@ class Person{
           ]).toArray();
       }
 
-      static findMostPopularTags(query: any) {
-        console.log('Find most popluar gender tags');
-    
+      public static findMostPopularTags(query: any) {
+        console.log("Find most popluar gender tags");
+
         const db = database.getDb();
-        return db.collection('persons')
+        return db.collection("persons")
           .aggregate([
             { $match: query },
             { $unwind: "$tags" },
@@ -134,37 +112,37 @@ class Person{
             {$limit: 1},
             {$unwind: "$docs"},
             {$project: {tag_Name: "$docs.tag_name", gender: 1, total: 1}}
-    
+
           ]).toArray();
       }
 
-      static findFriend(query : any) {
-        console.log('Find works! ', query);
+      public static findFriend(query: any) {
+        console.log("Find works! ", query);
         const db = database.getDb();
-        return db.collection('persons')
-          .findOne({ name: query.mainName, "friends.name": query.friend })
+        return db.collection("persons")
+          .findOne({ "name": query.mainName, "friends.name": query.friend });
       }
-    
-      static extractUniqueFriends(collection : any) {
-        console.log('Extract Unique friends!');
+
+      public static extractUniqueFriends(collection: any) {
+        console.log("Extract Unique friends!");
         const db = database.getDb();
-        return db.collection('persons')
+        return db.collection("persons")
         .aggregate([
-          { $unwind: '$friends' },
+          { $unwind: "$friends" },
           { $project: { friend_name: "$friends.name" } },
           {
             $group: {
-              _id: '$friend_name',
-              friend_name: { $first: '$friend_name' }
+              _id: "$friend_name",
+              friend_name: { $first: "$friend_name" }
             }
           },
           { $sort: { friend_name: 1}},
           { $out: collection }
         ]).toArray();
       }
-    
-      static extractFiveRecords(body: any) {
-        console.log('Extract Five People!');
+
+      public static extractFiveRecords(body: any) {
+        console.log("Extract Five People!");
         const db = database.getDb();
         return db.collection(body.fromCollection)
         .aggregate([
@@ -173,15 +151,40 @@ class Person{
         ]).toArray();
       }
 
-      static findUniqueFriends(collection: any, query: any) {
-        let filter = {}
+      public static findUniqueFriends(collection: any, query: any) {
+        let filter = {};
         if (query) {
-          filter = Object.keys(query).reduce((acc:any, key) => { acc[key] = +query[key]; return acc; }, {})   // Changing values to 
-          console.log(filter)
+          // Changing values to
+          filter = Object.keys(query).reduce((acc: any, key) => { acc[key] = +query[key]; return acc; }, {});
+          console.log(filter);
         }
         const db = database.getDb();
         return db.collection(collection)
           .find({}, filter).toArray();
       }
-    
+
+    public name: string;
+    public gender: string;
+    public eyeColor: string;
+    public company: string;
+    public email: string;
+    public tags: string[];
+    public friends: string[];
+
+    // creating a constructor
+    constructor(person: any) {
+        if (!person) {
+            person = {};
+        }
+
+        this.name = person.name;
+        this.gender = person.gender;
+        this.eyeColor = person.eyeColor;
+        this.company = person.company;
+        this.email = person.email;
+        this.tags = person.tags;
+        this.friends = person.tags;
+
+    }
+
 }
