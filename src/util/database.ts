@@ -3,7 +3,7 @@ const MongoClient = mongodb.MongoClient;
 
 let _db:any;
 
-const mongoConnect = ((callback:any) => {
+export const mongoConnect = ((callback:any) => {
   MongoClient.connect('mongodb://localhost/persons')
     .then(client => {
       console.log('Connect to DB!');
@@ -12,10 +12,7 @@ const mongoConnect = ((callback:any) => {
     }).catch(err => console.log(err));
 });
 
-const getDb = () => {
+export const getDb = () => {
   if (_db)
     return _db;
 }
-
-export { getDb as db }
-export { mongoConnect }
