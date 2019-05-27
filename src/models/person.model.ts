@@ -1,7 +1,7 @@
 import mongodb, { ObjectId } from "mongodb";
 import * as database from "../util/database";
 
-class Person {
+export class Person {
 
     public static find(query: any) {
         console.log(`Delete person`);
