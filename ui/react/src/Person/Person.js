@@ -12,10 +12,10 @@ const person = (props) => {
   const friendList = props.person.friends;
   const friends = (
     <ul className="">
-      {friendList.map((friend, ) => {
+      {friendList.map((friend, index) => {
         return <Friend
           friend={friend}
-          key={friend.id}
+          key={`${new Date().getTime() + index + friend.id}`}
         />
       })}
     </ul>

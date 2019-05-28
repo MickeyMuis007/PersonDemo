@@ -9,11 +9,15 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 library.add(faPlus);
 
 class App extends Component {
-  state = {
-    persons: []
+  constructor(props) {
+    super(props);
+    this.state = {
+      persons: []
+    }
   }
+  
 
-  getPersons = () => {
+  componentDidMount = () => {
     fetch('http://localhost:3001/person')
       .then(result => {
         if(result.ok)
@@ -22,8 +26,9 @@ class App extends Component {
       })
       .then(result => {
         const personsTake10 = result.slice(1, 10);
+        const persons = result;
         this.setState({
-          persons: personsTake10
+          persons: persons
         })
         
       })
@@ -44,7 +49,6 @@ class App extends Component {
       </div>
     );
 
-    this.getPersons();
     return (
       <div className="App">
         <header className="App-header">
