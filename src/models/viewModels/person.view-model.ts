@@ -7,12 +7,14 @@ export class PersonView {
     public name: string;
     public gender: string;
     public friends: any;
+    public tags: any;
 
     constructor(person: any) {
         this.id = person._id;
         this.name = person.name;
         this.gender = person.gender;
         this.friends = person.friends;
+        this.tags = person.tags;
     }
 
 }

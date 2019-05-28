@@ -14,7 +14,7 @@ export class Person {
       console.log(projection);
     }
 
-    return db.collection("people")
+    return db.collection("persons")
       .find({}, { projection })
       .toArray()
       .then((people: any) => {
