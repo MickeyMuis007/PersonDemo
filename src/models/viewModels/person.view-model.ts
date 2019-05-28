@@ -25,7 +25,7 @@ function viewFriends() {
 
     return db.collection("persons")
            .aggregate([
-                { $project: {_id: 1, name: 1, gender: 1, friends: 1} }
+                { $project: {_id: 1, name: 1, gender: 1, friends: 1, tags: 1} }
 
            ]).toArray();
 }
