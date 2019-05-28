@@ -28,7 +28,7 @@ class App extends Component {
         const personsTake10 = result.slice(1, 10);
         const persons = result;
         this.setState({
-          persons: persons
+          persons: personsTake10
         })
         
       })
