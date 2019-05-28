@@ -17,10 +17,10 @@ const nav = (props) => {
             <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Popular Friend</a>
+            <a class="nav-link" href="#">People</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Most Popular Tags</a>
+            <a class="nav-link" href="#">Friends</a>
           </li>
         </ul>
       </div>
