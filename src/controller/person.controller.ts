@@ -6,9 +6,9 @@ export class PersonController {
     console.log("Get Persons Controller");
     Person.find(req.query).then((people: any) => {
       const mapPeople = people.map((person: any) => {
-        
+
         return new PersonView(person);
-      })
+      });
       res.send(mapPeople);
     }).catch((err: any) => {
       console.log(err);
@@ -77,7 +77,8 @@ export class PersonController {
   }
 
   public findMostPopularTags = (req: any, res: any) => {
-    Person.findMostPopularFriend()
+    console.log("controller: ", req.query);
+    Person.findMostPopularTags(req.query)
     .then((result: any) => {
       res.send(result);
     }).catch((err: any) => {
