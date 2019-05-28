@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person'; 
+import Nav from './Nav/Nav';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
@@ -48,10 +49,12 @@ class App extends Component {
         })}
       </div>
     );
+    
 
     return (
       <div className="App">
         <header className="App-header">
+          <Nav />
           <h1>Person Demo</h1>
         </header>
         <div>
