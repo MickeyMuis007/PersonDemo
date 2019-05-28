@@ -2,33 +2,6 @@ import mongodb, { ObjectId } from "mongodb";
 import * as database from "../util/database";
 
 export class Person {
-
-  public _id: any;
-  public name: string;
-  public gender: string;
-  public eyeColor: string;
-  public company: string;
-  public email: string;
-  public tags: string[];
-  public friends: string[];
-
-  // // creating a constructor
-  constructor(person: any) {
-    if (!person) {
-      person = {};
-    }
-
-    // this._id = person._id;
-    this.name = person.name;
-    this.gender = person.gender;
-    this.eyeColor = person.eyeColor;
-    this.company = person.company;
-    this.email = person.email;
-    this.tags = person.tags;
-    this.friends = person.tags;
-
-  }
-
   public static find(query: any) {
     console.log(`Delete person`);
     const db = database.getDb();
@@ -48,7 +21,6 @@ export class Person {
         console.log("Successfully found people");
         return people;
       });
-
   }
 
   public static findById(id: number) {
@@ -104,24 +76,22 @@ export class Person {
   }
 
   public static findMostPopularTags(query: any) {
-   
-
     const db = database.getDb();
     console.log(+query.limit);
     const limitValue = +query.limit || 1;
 
     let gender = query.gender;
     const genders = ["male", "female"];
-    
-    if(!genders.includes(gender)){
+
+    if (!genders.includes(gender)) {
       gender = "male";
     }
     return db.collection("persons")
       .aggregate([
-        { 
+        {
           $match: {
             gender: gender
-          }  
+          }
         },
         { $unwind: "$tags" },
         // Group by tags, because we want to get the total number for each tag
@@ -129,16 +99,16 @@ export class Person {
           $group: {
             _id: { tags: "$tags" },
             total: { $sum: 1 },
-            gender: {$first: "$gender"}
+            gender: { $first: "$gender" }
           }
         },
 
         {
           $project: {
-              _id: 0,
-              tagName: "$_id.tags",
-              total: "$total",
-              gender: 1
+            _id: 0,
+            tagName: "$_id.tags",
+            total: "$total",
+            gender: 1
           }
         },
         // Group by total, put every tag with same total into one array
@@ -146,20 +116,15 @@ export class Person {
           $group: {
             _id: { total: "$total" },
             tags: {
-              $push: "$tagName" 
+              $push: "$tagName"
             },
-            gender: {$first: "$gender"}
+            gender: { $first: "$gender" }
 
           }
         },
         { $sort: { "_id.total": -1 } },
 
         { $limit: limitValue }
-        
-        //{ $unwind: "$docs" },
-
-        //{ $project: { tag_Name: "$docs.tag_name", gender: 1, total: 1 } }
-
       ]).toArray();
   }
 
@@ -210,6 +175,26 @@ export class Person {
       .find({}, filter).toArray();
   }
 
+  public name: string;
+  public gender: string;
+  public eyeColor: string;
+  public company: string;
+  public email: string;
+  public tags: string[];
+  public friends: string[];
 
+  constructor(person: any) {
+    if (!person) {
+      person = {};
+    }
 
+    this.name = person.name;
+    this.gender = person.gender;
+    this.eyeColor = person.eyeColor;
+    this.company = person.company;
+    this.email = person.email;
+    this.tags = person.tags;
+    this.friends = person.tags;
+
+  }
 }
