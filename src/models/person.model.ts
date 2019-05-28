@@ -1,4 +1,4 @@
-
+import mongodb, { ObjectId } from "mongodb";
 import * as database from "../util/database";
 
 export class Person {
@@ -6,9 +6,6 @@ export class Person {
     console.log(`Delete person`);
     const db = database.getDb();
 
-    public static find(query: any) {
-        console.log(`Delete person`);
-        const db = database.getDb();
     let projection = {};
 
     if (query) {
@@ -25,14 +22,6 @@ export class Person {
         return people;
       });
   }
-
-        return db.collection("people")
-               .find({}, {projection})
-               .toArray()
-               .then((people: any) => {
-                   console.log("Successfully found people");
-                   return people;
-               });
 
   public static findById(id: number) {
     console.log(`Find person by id`);
@@ -164,26 +153,6 @@ export class Person {
       ]).toArray();
   }
 
-      public static findUniqueFriends(collection: any, query: any) {
-        let filter = {};
-        if (query) {
-          // Changing values to
-          filter = Object.keys(query).reduce((acc: any, key) => { acc[key] = +query[key]; return acc; }, {});
-          console.log(filter);
-        }
-        const db = database.getDb();
-        return db.collection(collection)
-          .find({}, filter).toArray();
-      }
-    
-    //public _id: any;
-    public name: string;
-    public gender: string;
-    public eyeColor: string;
-    public company: string;
-    public email: string;
-    public tags: string[];
-    public friends: string[];
   public static extractFiveRecords(body: any) {
     console.log("Extract Five People!");
     const db = database.getDb();
@@ -206,14 +175,6 @@ export class Person {
       .find({}, filter).toArray();
   }
 
-        //this._id = person._id;
-        this.name = person.name;
-        this.gender = person.gender;
-        this.eyeColor = person.eyeColor;
-        this.company = person.company;
-        this.email = person.email;
-        this.tags = person.tags;
-        this.friends = person.tags;
   public name: string;
   public gender: string;
   public eyeColor: string;
