@@ -77,7 +77,8 @@ export class PersonController {
   }
 
   public findMostPopularTags = (req: any, res: any) => {
-    Person.findMostPopularFriend()
+    console.log("controller: ", req.query);
+    Person.findMostPopularTags(req.query)
     .then((result: any) => {
       res.send(result);
     }).catch((err: any) => {

@@ -7,12 +7,14 @@ export class PersonView {
     public name: string;
     public gender: string;
     public friends: any;
+    public tags: any;
 
     constructor(person: any) {
         this.id = person._id;
         this.name = person.name;
         this.gender = person.gender;
         this.friends = person.friends;
+        this.tags = person.tags;
     }
 
 }
@@ -23,7 +25,7 @@ function viewFriends() {
 
     return db.collection("persons")
            .aggregate([
-                { $project: {_id: 1, name: 1, gender: 1, friends: 1} }
+                { $project: {_id: 1, name: 1, gender: 1, friends: 1, tags: 1} }
 
            ]).toArray();
 }
