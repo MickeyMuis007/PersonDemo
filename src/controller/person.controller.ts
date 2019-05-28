@@ -6,9 +6,9 @@ export class PersonController {
     console.log("Get Persons Controller");
     Person.find(req.query).then((people: any) => {
       const mapPeople = people.map((person: any) => {
-        
+
         return new PersonView(person);
-      })
+      });
       res.send(mapPeople);
     }).catch((err: any) => {
       console.log(err);

@@ -1,6 +1,6 @@
 import mongodb, { ObjectId } from "mongodb";
-import { Person } from "../person.model";
 import * as database from "../../util/database";
+import { Person } from "../person.model";
 
 export class PersonView {
     public id: any;
@@ -8,13 +8,13 @@ export class PersonView {
     public gender: string;
     public friends: any;
 
-    constructor(person: any){
+    constructor(person: any) {
         this.id = person._id;
         this.name = person.name;
         this.gender = person.gender;
         this.friends = person.friends;
     }
-    
+
 }
 
 function viewFriends() {

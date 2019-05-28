@@ -4,7 +4,6 @@ import * as database from "../util/database";
 export class Person {
 
     public static find(query: any) {
-        console.log(`Delete person`);
         const db = database.getDb();
 
         let projection = {};
@@ -15,7 +14,7 @@ export class Person {
             console.log(projection);
         }
 
-        return db.collection("people")
+        return db.collection("persons")
                .find({}, {projection})
                .toArray()
                .then((people: any) => {
@@ -162,8 +161,8 @@ export class Person {
         return db.collection(collection)
           .find({}, filter).toArray();
       }
-    
-    //public _id: any;
+
+    // public _id: any;
     public name: string;
     public gender: string;
     public eyeColor: string;
@@ -178,7 +177,7 @@ export class Person {
             person = {};
         }
 
-        //this._id = person._id;
+        // this._id = person._id;
         this.name = person.name;
         this.gender = person.gender;
         this.eyeColor = person.eyeColor;
