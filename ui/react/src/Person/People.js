@@ -24,7 +24,7 @@ class People extends Component {
       })
       .then(result => {
         const personsTake10 = result.slice(1, 10);
-        const persons = result;
+        // const persons = result;
         this.setState({
           persons: personsTake10
         })

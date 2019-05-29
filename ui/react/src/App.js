@@ -1,16 +1,10 @@
 import React, { Component } from 'react';
 import './App.css';
-import Person from './Person/Person';
-import Nav from './Nav/Nav';
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import Home from './Home/Home';
 import Friend from './Friend/Friend';
 import People from './Person/People';
 
-library.add(faPlus);
 
 class App extends Component {
   render() {
