@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import Home from './Home/Home';
 import Friend from './Friend/Friend';
 import People from './Person/People';
+import AddFriend from './Person/Friend/AddFriend';
 
 
 class App extends Component {
@@ -37,6 +38,7 @@ class App extends Component {
               <Route exact path='/' component={Home} />
               <Route path='/people' component={People} />
               <Route path='/friend' component={Friend} />
+              <Route path='/add-friend' component={AddFriend} />
             </Switch>
           </div>
         </div>

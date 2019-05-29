@@ -50,6 +50,7 @@ class People extends Component {
               });
             } else if (value.includes('/popular-tag')) {
               console.log('popular tags')
+              console.log(result);
               this.setState({
                 persons: [],
                 popularTags: result,
@@ -101,7 +102,7 @@ class People extends Component {
         {this.state.popularTags.map((tag, index) => {
           return <PopularTag
             popularTag={tag}
-            key={index}
+            key={tag.gender}
           />
         })}
       </div>
@@ -134,7 +135,7 @@ class People extends Component {
                 onClick={() => this.filter('/popular-tag?gender=male')} /> Most Popular Male Tags</label>
             <label className={this.state.filterSelection === '/most-popular-friend' ? 'btn btn-secondary active' : 'btn btn-secondary'}>
               <input type="radio" name="options" id="option3" autoComplete="off"
-                onClick={() => this.filter('/most-popular-friend')} /> Most Popular Friend</label>
+                onClick={() => this.filter('/most-popular-friend')} /> Most Popular Friends</label>
           </div>
         </div>
         <div>

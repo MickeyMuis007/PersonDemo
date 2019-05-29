@@ -9,7 +9,7 @@ const popularTag = (props) => {
   const displayTags = (
     <div className="container">
       {tags.map((tag) => {
-        return <div>{tag}</div>
+        return <div key={tag}>{tag}</div>
       })}
     </div>
   )

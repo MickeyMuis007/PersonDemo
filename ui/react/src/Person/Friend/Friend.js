@@ -19,29 +19,9 @@ const friend = (props) => {
 
   return (
     <li className="row mb-2 text-primary text-center">
-      <Popup trigger={viewFriendButton} modal>
-        <div className="card">
-          <h1 className="card-header bg-info text-white">View</h1>
-          <div className="card-body">
-            {friendName}
-          </div>
-        </div>
-      </Popup>
-      <Popup trigger={editFriendButton} modal>
-        <div>
-          <label className="mx-2">Edit Friend</label>
-          <input />
-        </div>
-      </Popup>
-      <Popup trigger={deleteFriendButton} modal isOpen={false}>
-        <div className="text-danger text-center">
-          <div>Are You sure you want to delete {friendName}?</div>
-          <div className="d-flex justify-content-center">
-            <button className="btn btn-danger mx-2">Yes</button>
-            <button className="btn btn-info mx-2">No</button>
-          </div>
-        </div>
-      </Popup>
+      {viewFriendButton}
+      {editFriendButton}
+      {deleteFriendButton}
       <span className="col-md-3 text-white">{friendName}</span>
 
     </li>
