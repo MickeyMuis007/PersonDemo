@@ -29,13 +29,13 @@ const friend = (props) => {
       </Popup>
       <Popup trigger={editFriendButton} modal>
         <div>
-          <label className="mx-2">Edit Friend</label>
+          <label className="mx-2">Edit <span className="font-weight-bold font-italic">{friendName}</span></label>
           <input />
         </div>
       </Popup>
       <Popup trigger={deleteFriendButton} modal isOpen={false}>
         <div className="text-danger text-center">
-          <div>Are You sure you want to delete {friendName}?</div>
+          <div>Are You sure you want to delete <span className="font-weight-bold font-italic text-primary">{friendName}</span>?</div>
           <div className="d-flex justify-content-center">
             <button className="btn btn-danger mx-2">Yes</button>
             <button className="btn btn-info mx-2">No</button>
