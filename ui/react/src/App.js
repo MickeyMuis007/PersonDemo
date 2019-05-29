@@ -5,6 +5,7 @@ import Home from './Home/Home';
 import Friend from './Friend/Friend';
 import People from './Person/People';
 import AddFriend from './Person/Friend/AddFriend';
+import AddPerson from './Person/AddPerson';
 
 
 class App extends Component {
@@ -39,6 +40,7 @@ class App extends Component {
               <Route path='/people' component={People} />
               <Route path='/friend' component={Friend} />
               <Route path='/add-friend' component={AddFriend} />
+              <Route path='/add-person' component={AddPerson} />
             </Switch>
           </div>
         </div>

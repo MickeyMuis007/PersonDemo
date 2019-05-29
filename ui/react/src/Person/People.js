@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Person from './Person';
 import PopularFriend from './Popular Friend/PopularFriend';
 import PopularTag from './Popular Tag/PopularTag';
@@ -111,11 +112,11 @@ class People extends Component {
     let personAddButton = null;
     if (this.state.persons.length > 0) {
       personAddButton = (
-        <button
+        <Link to={'/add-person'}
           onClick={this.getPersons}
-          className="float" data-toggle="tooltip" data-placement="top" title="Add Person">
+          className="float btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Add Person">
           <FontAwesomeIcon icon="plus" />
-        </button>
+        </Link>
       )
     }
 
