@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Person from './Person';
 import PopularFriend from './Popular Friend/PopularFriend';
+import PopularTag from './Popular Tag/PopularTag';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
@@ -12,7 +13,7 @@ class People extends Component {
     super(props);
     this.state = {
       persons: [],
-      tags: [],
+      popularTags: [],
       popularFriends: [],
       filterSelection: '/person'
     }
@@ -44,15 +45,14 @@ class People extends Component {
               console.log('persons')
               this.setState({
                 persons: result.slice(1, 10),
-                tags: [],
+                popularTags: [],
                 popularFriends: []
               });
             } else if (value.includes('/popular-tag')) {
               console.log('popular tags')
-              console.log(result[0]);
               this.setState({
                 persons: [],
-                tags: result[0],
+                popularTags: result,
                 popularFriends: []
               });
             } else if (value.includes('/most-popular-friend')) {
@@ -60,7 +60,7 @@ class People extends Component {
               console.log(result);
               this.setState({
                 persons: [],
-                tags: [],
+                popularTags: [],
                 popularFriends: result
               });
             }
@@ -88,13 +88,24 @@ class People extends Component {
     const popularFriends = (
       <div>
         {this.state.popularFriends.map((friend) => {
-          return <PopularFriend 
+          return <PopularFriend
             friend={friend}
             key={friend.friend_name}
           />
         })}
       </div>
     );
+
+    const popularTags = (
+      <div>
+        {this.state.popularTags.map((tag, index) => {
+          return <PopularTag
+            popularTag={tag}
+            key={index}
+          />
+        })}
+      </div>
+    )
 
     let personAddButton = null;
     if (this.state.persons.length > 0) {
@@ -129,6 +140,7 @@ class People extends Component {
         <div>
           {person}
           {popularFriends}
+          {popularTags}
         </div>
         {personAddButton}
       </div>
