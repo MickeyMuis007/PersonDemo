@@ -46,7 +46,7 @@ const person = (props) => {
       <div className="container list-container">
         {friends}
         <div className="d-flex justify-content-end">
-          <Link to={'/add-friend'} className="b-float btn btn-success" data-toggle="tooltip" data-placement="top" title="Add Friend">
+          <Link to={'/add-friend'} className="b-float btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Add Friend">
             <FontAwesomeIcon icon="plus" /></Link>
         </div>
       </div>
