@@ -49,9 +49,9 @@ class People extends Component {
 
 
     return (
-      <div className="App">
-        <div>
-          <h1>Person Demo</h1>
+      <div className="container-fluid">
+        <h1 className="text-center">People</h1>
+        <div className="d-flex justify-content-center">
           <div className="btn-group btn-group-toggle" data-toggle="buttons">
             <label className="btn btn-secondary active">
               <input type="radio" name="options" id="option1" autoComplete="off" defaultChecked /> All</label>
