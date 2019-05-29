@@ -6,6 +6,7 @@ import PopularTag from './Popular Tag/PopularTag';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { Spinner } from 'react-bootstrap';
 
 library.add(faPlus);
 
@@ -16,19 +17,27 @@ class People extends Component {
       persons: [],
       popularTags: [],
       popularFriends: [],
-      filterSelection: '/person'
+      filterSelection: '/person',
+      isLoading: false
     }
   }
 
 
   componentDidMount = () => {
+    this.setState({
+      persons: [],
+      popularTags: [],
+      popularFriends: [],
+      isLoading: true
+    });
     fetch('http://localhost:3001/person')
       .then(result => {
         if (result.ok) {
           return result.json().then(result => {
-            const persons = result.slice(1, 10);
+            const persons = result.slice(1, 50);
             this.setState({
-              persons: persons
+              persons: persons,
+              isLoading: false
             })
           });
         }
@@ -38,6 +47,12 @@ class People extends Component {
 
   filter = (value) => {
     console.log('filter', value);
+    this.setState({
+      persons: [],
+      popularTags: [],
+      popularFriends: [],
+      isLoading: true
+    });
     fetch(`http://localhost:3001${value}`)
       .then(result => {
         if (result.ok) {
@@ -45,9 +60,10 @@ class People extends Component {
             if (value.includes('/person')) {
               console.log('persons')
               this.setState({
-                persons: result.slice(1, 10),
+                persons: result.slice(1, 50),
                 popularTags: [],
-                popularFriends: []
+                popularFriends: [],
+                isLoading: false
               });
             } else if (value.includes('/popular-tag')) {
               console.log('popular tags')
@@ -55,7 +71,8 @@ class People extends Component {
               this.setState({
                 persons: [],
                 popularTags: result,
-                popularFriends: []
+                popularFriends: [],
+                isLoading: false
               });
             } else if (value.includes('/most-popular-friend')) {
               console.log('Most popular friend');
@@ -63,7 +80,8 @@ class People extends Component {
               this.setState({
                 persons: [],
                 popularTags: [],
-                popularFriends: result
+                popularFriends: result,
+                isLoading: false
               });
             }
           });
@@ -120,6 +138,11 @@ class People extends Component {
       )
     }
 
+    let loader = null;
+    if (this.state.isLoading) {
+        loader = <Spinner animation="grow" />
+    }
+
     return (
       <div className="container-fluid">
         <h1 className="text-center">People</h1>
@@ -139,6 +162,9 @@ class People extends Component {
                 onClick={() => this.filter('/most-popular-friend')} /> Most Popular Friends</label>
           </div>
         </div>
+        <div className="text-center">
+          {loader}
+          </div>
         <div>
           {person}
           {popularFriends}
