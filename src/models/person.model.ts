@@ -14,13 +14,25 @@ export class Person {
       console.log(projection);
     }
 
-    return db.collection("persons")
+    return db.collection("people")
       .find({},  { projection })
       .toArray()
       .then((people: any) => {
         console.log("Successfully found people");
         return people;
       });
+  }
+
+  addPerson(){
+
+    console.log('Add new person object');
+
+    const db = database.getDb();
+
+    return db.collection("people")
+      .insertOne(this)
+      
+
   }
 
   public static findById(id: number) {
@@ -31,7 +43,7 @@ export class Person {
       });
     }
     const db = database.getDb();
-    return db.collection("persons")
+    return db.collection("people")
       .findOne({
         $or: [
           { _id: id },
@@ -47,7 +59,7 @@ export class Person {
   public static findByName(name: string) {
     console.log("Find person by name");
     const db = database.getDb();
-    return db.collection("persons")
+    return db.collection("people")
       .findOne({ name })
       .then((person: any) => {
         console.log("\t- Successfully found person");
@@ -58,7 +70,7 @@ export class Person {
   public static findMostPopularFriend() {
     console.log("Find Most popular friend");
     const db = database.getDb();
-    return db.collection("persons")
+    return db.collection("people")
       .aggregate([
         { $unwind: "$friends" },
         { $project: { name: 1, friend_name: "$friends.name" } },
@@ -86,7 +98,7 @@ export class Person {
     if (!genders.includes(gender)) {
       gender = "male";
     }
-    return db.collection("persons")
+    return db.collection("people")
       .aggregate([
         {
           $match: {
@@ -131,14 +143,14 @@ export class Person {
   public static findFriend(query: any) {
     console.log("Find works! ", query);
     const db = database.getDb();
-    return db.collection("persons")
+    return db.collection("people")
       .findOne({ "name": query.mainName, "friends.name": query.friend });
   }
 
   public static extractUniqueFriends(collection: any) {
     console.log("Extract Unique friends!");
     const db = database.getDb();
-    return db.collection("persons")
+    return db.collection("people")
       .aggregate([
         { $unwind: "$friends" },
         { $project: { friend_name: "$friends.name" } },
