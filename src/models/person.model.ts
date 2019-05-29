@@ -3,7 +3,7 @@ import * as database from "../util/database";
 
 export class Person {
   public static find(query: any) {
-    console.log(`Delete person`);
+    
     const db = database.getDb();
 
     let projection = {};
