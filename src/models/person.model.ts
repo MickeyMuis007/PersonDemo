@@ -15,7 +15,7 @@ export class Person {
     }
 
     return db.collection("persons")
-      .find({}, { projection })
+      .find({},  { projection })
       .toArray()
       .then((people: any) => {
         console.log("Successfully found people");
