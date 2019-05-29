@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal, Button, Spinner } from 'react-bootstrap';
 
 class Friend extends Component {
   constructor(props, context) {
@@ -42,6 +42,7 @@ class Friend extends Component {
             </Button>
           </Modal.Footer>
         </Modal>
+        <Spinner animation="grow" />
       </>
     );
   }
