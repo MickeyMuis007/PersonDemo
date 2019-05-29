@@ -17,10 +17,12 @@ class Friend extends Component {
     super();
 
     this.state = {
-      modalIsOpen: false
+      modalIsOpen: false,
+      anotherModalOpen: false
     };
 
     this.openModal = this.openModal.bind(this);
+    this.openAnotherModal = this.openAnotherModal.bind(this);
     this.afterOpenModal = this.afterOpenModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
   }
@@ -29,13 +31,17 @@ class Friend extends Component {
     this.setState({modalIsOpen: true});
   }
 
+  openAnotherModal() {
+    this.setState({anotherModalOpen: true});
+  }
+
   afterOpenModal() {
     // references are now sync'd and can be accessed.
     this.subtitle.style.color = '#f00';
   }
 
   closeModal() {
-    this.setState({modalIsOpen: false});
+    this.setState({modalIsOpen: false, anotherModalOpen: false});
   }
 
   render() {
@@ -52,6 +58,18 @@ class Friend extends Component {
           contentLabel="Example Modal"
          >
           <h2 ref={subtitle => this.subtitle = subtitle}>Hello This is a modal example</h2>
+          <button className="btn btn-primary" onClick={this.closeModal}>close</button>
+         
+        </Modal>
+        <button className="btn btn-primary" onClick={this.openAnotherModal}>Open Another Modal</button>
+        <Modal
+          isOpen={this.state.anotherModalOpen}
+          onAfterOpen={this.afterOpenModal}
+          onRequestClose={this.closeModal}
+          style={customStyles}
+          contentLabel="Example Modal"
+         >
+          <h2 ref={subtitle => this.subtitle = subtitle}>Opened another modal</h2>
           <button className="btn btn-primary" onClick={this.closeModal}>close</button>
          
         </Modal>
