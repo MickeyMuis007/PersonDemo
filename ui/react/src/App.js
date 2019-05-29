@@ -12,14 +12,14 @@ class App extends Component {
       <Router>
         <div className="App">
           <header className="App-header">
-            <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            <nav className="navbar navbar-expand-lg navbar-light bg-info">
               <Link to={'/'} className="navbar-brand">Person Demo</Link>
               <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
               </button>
               <div className="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul className="navbar-nav">
-                  <li className="nav-item active">
+                  <li className="nav-item">
                     <Link to={'/'} className="nav-link">Home <span className="sr-only">(current)</span></Link>
                   </li>
                   <li className="nav-item">
