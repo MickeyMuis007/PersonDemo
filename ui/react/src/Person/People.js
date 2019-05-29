@@ -90,6 +90,7 @@ class People extends Component {
         {this.state.popularFriends.map((friend) => {
           return <PopularFriend 
             friend={friend}
+            key={friend.friend_name}
           />
         })}
       </div>
