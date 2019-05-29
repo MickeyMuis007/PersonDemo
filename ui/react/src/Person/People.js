@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Person from './Person';
+import PopularFriend from './Popular Friend/PopularFriend';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
@@ -11,6 +12,8 @@ class People extends Component {
     super(props);
     this.state = {
       persons: [],
+      tags: [],
+      popularFriends: [],
       filterSelection: '/person'
     }
   }
@@ -37,25 +40,28 @@ class People extends Component {
       .then(result => {
         if (result.ok) {
           return result.json().then(result => {
-            const persons = result.slice(1, 10);
-            console.log(persons);
             if (value.includes('/person')) {
               console.log('persons')
               this.setState({
-                persons: persons
+                persons: result.slice(1, 10),
+                tags: [],
+                popularFriends: []
               });
             } else if (value.includes('/popular-tag')) {
               console.log('popular tags')
+              console.log(result[0]);
               this.setState({
                 persons: [],
-                tags: result
+                tags: result[0],
+                popularFriends: []
               });
             } else if (value.includes('/most-popular-friend')) {
               console.log('Most popular friend');
+              console.log(result);
               this.setState({
                 persons: [],
                 tags: [],
-                friends: []
+                popularFriends: result
               });
             }
           });
@@ -67,9 +73,7 @@ class People extends Component {
   }
 
   render() {
-    let person = null;
-
-    person = (
+    const person = (
       <div>
         {this.state.persons.map((person) => {
           return <Person
@@ -80,6 +84,27 @@ class People extends Component {
         })}
       </div>
     );
+
+    const popularFriends = (
+      <div>
+        {this.state.popularFriends.map((friend) => {
+          return <PopularFriend 
+            friend={friend}
+          />
+        })}
+      </div>
+    );
+
+    let personAddButton = null;
+    if (this.state.persons.length > 0) {
+      personAddButton = (
+        <button
+          onClick={this.getPersons}
+          className="float" data-toggle="tooltip" data-placement="top" title="Add Person">
+          <FontAwesomeIcon icon="plus" />
+        </button>
+      )
+    }
 
     return (
       <div className="container-fluid">
@@ -102,12 +127,9 @@ class People extends Component {
         </div>
         <div>
           {person}
+          {popularFriends}
         </div>
-        <button
-          onClick={this.getPersons}
-          className="float" data-toggle="tooltip" data-placement="top" title="Add Person">
-          <FontAwesomeIcon icon="plus" />
-        </button>
+        {personAddButton}
       </div>
     );
   }
