@@ -5,78 +5,46 @@ import Nav from './Nav/Nav';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
-
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import Home from './Home/Home';
+import Friend from './Friend/Friend';
+import People from './Person/People';
 
 library.add(faPlus);
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      persons: []
-    }
-  }
-
-
-  componentDidMount = () => {
-    fetch('http://localhost:3001/person')
-      .then(result => {
-        if (result.ok)
-          return result.json();
-        return result;
-      })
-      .then(result => {
-        const personsTake10 = result.slice(1, 10);
-        const persons = result;
-        this.setState({
-          persons: personsTake10
-        })
-
-      })
-      .catch(err => console.log(err));
-  }
-
   render() {
-    let person = null;
-
-    person = (
-      <div>
-        {this.state.persons.map((person) => {
-          return <Person
-            person={person}
-            key={person.id}
-          />
-        })}
-      </div>
-    );
-
-
     return (
-      <div className="App">
-        <header className="App-header">
-          <Nav />
-          <h1>Person Demo</h1>
-          <div class="btn-group btn-group-toggle" data-toggle="buttons">
-            <label class="btn btn-secondary active">
-              <input type="radio" name="options" id="option1" autocomplete="off" checked /> All</label>
-            <label class="btn btn-secondary">
-              <input type="radio" name="options" id="option2" autocomplete="off" /> Most Popular Female Tags</label>
-              <label class="btn btn-secondary">
-              <input type="radio" name="options" id="option2" autocomplete="off" /> Most Popular Male Tags</label>
-            <label class="btn btn-secondary">
-              <input type="radio" name="options" id="option3" autocomplete="off" /> Most Popular Friend</label>
-            
-          </div>
-        </header>
-        <div>
-          {person}
+      <Router>
+        <div className="App">
+          <header className="App-header">
+            <nav className="navbar navbar-expand-lg navbar-light bg-light">
+              <Link to={'/'} className="navbar-brand">Person Demo</Link>
+              <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span className="navbar-toggler-icon"></span>
+              </button>
+              <div className="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul className="navbar-nav">
+                  <li className="nav-item active">
+                    <Link to={'/'} className="nav-link">Home <span className="sr-only">(current)</span></Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link to={'/people'} className="nav-link" href="#">People</Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link to={'/friend'} className="nav-link" href="#">Friends</Link>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+          </header>
+          <Switch>
+              <Route exact path='/' component={Home} />
+              <Route path='/people' component={People} />
+              <Route path='/friend' component={Friend} />
+            </Switch>
         </div>
-        <button
-          onClick={this.getPersons}
-          className="float" data-toggle="tooltip" data-placement="top" title="Add Person">
-          <FontAwesomeIcon icon="plus" />
-        </button>
-      </div>
+      </Router>
     );
   }
 }
