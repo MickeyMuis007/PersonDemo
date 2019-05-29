@@ -34,7 +34,7 @@ class People extends Component {
       .then(result => {
         if (result.ok) {
           return result.json().then(result => {
-            const persons = result.slice(1, 50);
+            const persons = result.slice(1, 100);
             this.setState({
               persons: persons,
               isLoading: false
@@ -60,7 +60,7 @@ class People extends Component {
             if (value.includes('/person')) {
               console.log('persons')
               this.setState({
-                persons: result.slice(1, 50),
+                persons: result.slice(1, 100),
                 popularTags: [],
                 popularFriends: [],
                 isLoading: false
