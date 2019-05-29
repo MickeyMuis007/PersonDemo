@@ -38,11 +38,13 @@ class App extends Component {
               </div>
             </nav>
           </header>
-          <Switch>
+          <div className="content">
+            <Switch>
               <Route exact path='/' component={Home} />
               <Route path='/people' component={People} />
               <Route path='/friend' component={Friend} />
             </Switch>
+          </div>
         </div>
       </Router>
     );
