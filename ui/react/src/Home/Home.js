@@ -6,7 +6,7 @@ class Home extends Component {
     return (
     <div className="container text-center">
       <h1>Person Demo</h1>
-      <h2>Welcome to People Demo</h2>
+      <h2>Welcome to Person Demo</h2>
       <NavigationButtons />
     </div>
     )

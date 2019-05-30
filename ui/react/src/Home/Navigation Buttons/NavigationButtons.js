@@ -2,37 +2,44 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
+import { LinkContainer } from 'react-router-bootstrap';
 
 const images = [
   {
     url: 'https://www.gettyimages.com/gi-resources/images/500px/983794168.jpg',
     title: 'People',
     width: '40%',
+    link: '/people'
   },
   {
     url: 'https://www.cutebabyblog.com/wp-content/uploads/2018/08/cute-baby-boy-images-48-1024x683.jpg',
     title: 'Add Person',
     width: '30%',
+    link: '/add-person'
   },
   {
     url: 'https://cdn.pixabay.com/photo/2018/10/30/16/06/water-lily-3784022__340.jpg',
     title: 'Bootstrap Demo',
     width: '30%',
+    link: '/bootstrap-demo'
   },
   {
     url: 'https://cdn.pixabay.com/photo/2019/03/12/18/00/kerala-4051412__340.jpg',
     title: 'Material Button Demo',
     width: '30%',
+    link: '/material-button-demo'
   },
   {
     url: 'https://atgbcentral.com/data/out/185/5614863-images.jpg',
     title: 'Material Drawer Demo',
     width: '30%',
+    link: '/material-drawer-demo'
   },
   {
     url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRt9Timy2N5Pnzi3aa1_Y5cs4gaxp1K_6hZBbtS0C5suvIfYQWafQ',
     title: 'Material Checkbox Demo',
     width: '30%',
+    link: '/material-checkbox-demo'
   }
 ];
 
@@ -123,7 +130,7 @@ function NavigationButtons() {
           style={{
             width: image.width,
           }}
-        >
+        ><LinkContainer to={image.link}><span>
           <span
             className={classes.imageSrc}
             style={{
@@ -132,6 +139,7 @@ function NavigationButtons() {
           />
           <span className={classes.imageBackdrop} />
           <span className={classes.imageButton}>
+
             <Typography
               component="span"
               variant="subtitle1"
@@ -142,6 +150,7 @@ function NavigationButtons() {
               <span className={classes.imageMarked} />
             </Typography>
           </span>
+        </span></LinkContainer>
         </ButtonBase>
       ))}
     </div>
