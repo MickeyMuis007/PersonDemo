@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Modal, Button, Form, InputGroup, FormControl, Spinner } from 'react-bootstrap';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus, faEye } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus, faEye } from '@fortawesome/free-solid-svg-icons';
 
 library.add(faPlus, faEye);
 
