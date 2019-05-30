@@ -15,22 +15,18 @@ class AddPerson extends Component {
       <div>
         <h1 className="text-center">Add Person</h1>
         <form className="container add-friend-container bg-light">
-          <FormGroup>
+          <TextField
+            id="outlined-name"
+            label="Name"
+            className="col-md-6"
+            margin="normal"
+            variant="outlined" />
             <TextField
-              id="outlined-name"
-              label="Name"
-              className="col-md-6"
-              margin="normal"
-              variant="outlined" />
-          </FormGroup>
-          <FormGroup>
-            <TextField
-              id="outlined-name"
-              label="Gender"
-              className="col-md-6"
-              margin="normal"
-              variant="outlined" />
-          </FormGroup>
+            id="outlined-name"
+            label="Gender"
+            className="col-md-6"
+            margin="normal"
+            variant="outlined" />
           <FormGroup className="mb-3">
             <ExpansionPanel>
               <ExpansionPanelSummary
@@ -41,11 +37,12 @@ class AddPerson extends Component {
                   <Typography className="text-center">Friends</Typography>
                 </div>
               </ExpansionPanelSummary>
-              <ExpansionPanelDetails>
+              <ExpansionPanelDetails >
                 <TextField
                   id="outlined-name"
                   label="Friend"
                   margin="normal"
+                  className="col-md-8"
                   variant="outlined" />
                 <Fab color="primary" aria-label="Add" className="my-3 mx-3">
                   <AddIcon />
@@ -67,7 +64,7 @@ class AddPerson extends Component {
                 <TextField
                   id="outlined-name"
                   label="Tag"
-                  className=""
+                  className="col-md-8"
                   margin="normal"
                   variant="outlined" />
                 <Fab color="primary" aria-label="Add" className="my-3 mx-3">
