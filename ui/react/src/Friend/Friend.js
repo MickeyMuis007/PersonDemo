@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal, Button, Spinner } from 'react-bootstrap';
+import { Modal, Button, Spinner, Pagination } from 'react-bootstrap';
 
 class Friend extends Component {
   constructor(props, context) {
@@ -22,6 +22,28 @@ class Friend extends Component {
   }
 
   render() {
+    let active = 2;
+    let items = [];
+    for (let number = 1; number <= 12; number++) {
+      items.push(
+        <Pagination.Item key={number} active={number === active}>
+          {number}
+        </Pagination.Item>,
+      );
+    }
+
+    const paginationBasic = (
+      <div>
+        <Pagination>{items}</Pagination>
+        <br />
+
+        <Pagination size="lg">{items}</Pagination>
+        <br />
+
+        <Pagination size="sm">{items}</Pagination>
+      </div>
+    );
+
     return (
       <>
         <Button variant="primary" onClick={this.handleShow}>
@@ -43,6 +65,9 @@ class Friend extends Component {
           </Modal.Footer>
         </Modal>
         <Spinner animation="grow" />
+        <div>
+          {paginationBasic}
+        </div>
       </>
     );
   }
