@@ -5,6 +5,7 @@ import { faEdit, faTrash, faEye } from '@fortawesome/free-solid-svg-icons';
 import Popup from 'reactjs-popup';
 import ViewFriendModal from '../../Modals/Person/Friend/ViewFriendModal';
 import EditFriendModal from '../../Modals/Person/Friend/EditFriendModal';
+import DeleteFriendModal from '../../Modals/Person/Friend/DeleteFriendModal';
 
 library.add(faEdit, faTrash, faEye);
 const friend = (props) => {
@@ -12,10 +13,9 @@ const friend = (props) => {
 
   const viewFriendButton = <ViewFriendModal name={friendName} />;
 
-  const editFriendButton = (<EditFriendModal name={friendName} />);
+  const editFriendButton = <EditFriendModal name={friendName} />;
 
-  const deleteFriendButton = (<button className="b-float btn-danger" data-toggle="tooltip" data-placement="top"
-    title="Delete Friend"><FontAwesomeIcon icon="trash" /></button>);
+  const deleteFriendButton = <DeleteFriendModal name={friendName} />;
 
   return (
     <li className="row mb-2 text-primary text-center">
