@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal, Button, Spinner, Pagination } from 'react-bootstrap';
+import { Modal, Button, Spinner, Pagination, Tab, Tabs } from 'react-bootstrap';
 
 class Friend extends Component {
   constructor(props, context) {
@@ -65,8 +65,28 @@ class Friend extends Component {
           </Modal.Footer>
         </Modal>
         <Spinner animation="grow" />
+
+        {/* Pagination Example */}
         <div>
           {paginationBasic}
+        </div>
+
+        {/* Tabs example */}
+        <div>
+          <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example">
+            <Tab eventKey="home" title="Home">
+              <h1>Home Page</h1>
+              <p>This is some details on home page</p>
+            </Tab>
+            <Tab eventKey="profile" title="Profile">
+              <h1>Profile Page</h1>
+              <p>This is some details on profile page</p>
+            </Tab>
+            <Tab eventKey="contact" title="Contact">
+              <h1>Contact Page</h1>
+              <p>This is some details on contact page</p>
+            </Tab>
+          </Tabs>
         </div>
       </>
     );
