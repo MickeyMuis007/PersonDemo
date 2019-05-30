@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal, Button, Form, InputGroup, FormControl } from 'react-bootstrap';
+import { Modal, Button, Form, InputGroup, FormControl, Spinner } from 'react-bootstrap';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faEye } from '@fortawesome/free-solid-svg-icons'
@@ -16,7 +16,8 @@ class EditFriendModal extends Component {
 
     this.state = {
       show: false,
-      name: props ? props.name || '' : ''
+      name: props ? props.name || '' : '',
+      editing: false
     };
   }
 
@@ -29,10 +30,27 @@ class EditFriendModal extends Component {
   }
 
   save() {
-    this.setState({ show: false });
+    this.setState({ editing: true });
+    setTimeout(() => {
+      this.setState({ show: false, editing: false });
+    }, 3000);
   }
 
   render() {
+    let editButton = <Button variant="success" onClick={this.save}>Save</Button>;
+    if (this.state.editing) {
+      editButton = (<Button variant="success" disabled>
+        <Spinner
+          as="span"
+          animation="grow"
+          size="sm"
+          role="status"
+          aria-hidden="true"
+        />
+        Updating <span className="text-primary">{this.state.name}</span>
+    </Button>);
+    }
+
     return (
       <>
         <button onClick={this.handleShow} className="b-float btn-primary" data-toggle="tooltip" data-placement="top"
@@ -55,9 +73,8 @@ class EditFriendModal extends Component {
               </InputGroup>
             </Modal.Body>
             <Modal.Footer>
-              <Button variant="secondary" onClick={this.handleClose}>
-                Close
-            </Button>
+              <Button disabled={this.state.editing} variant="secondary" onClick={this.handleClose}>Close</Button>
+              {editButton}
             </Modal.Footer>
           </Modal>
         </Form>

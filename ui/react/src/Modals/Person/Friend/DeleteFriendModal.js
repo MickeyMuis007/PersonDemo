@@ -48,7 +48,7 @@ class DeleteFriendModal extends Component {
           role="status"
           aria-hidden="true"
         />
-        Deleting <span className="text-info">{this.state.name}</span>...
+        Deleting <span className="text-info">{this.state.name}</span>
     </Button>);
     }
 
