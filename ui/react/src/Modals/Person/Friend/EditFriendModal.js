@@ -13,6 +13,7 @@ class EditFriendModal extends Component {
     this.handleShow = this.handleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.save = this.save.bind(this);
+    this.handleNameChange = this.handleNameChange.bind(this);
 
     this.state = {
       show: false,
@@ -28,6 +29,12 @@ class EditFriendModal extends Component {
 
   handleShow() {
     this.setState({ show: true });
+  }
+
+  handleNameChange(event) {
+    this.setState({
+      name: event.target.value
+    })
   }
 
   save() {
@@ -70,6 +77,7 @@ class EditFriendModal extends Component {
                   placeholder="Update Friend Name"
                   aria-label="Friend Name"
                   aria-describedby="name"
+                  onChange={this.handleNameChange}
                 />
               </InputGroup>
             </Modal.Body>
