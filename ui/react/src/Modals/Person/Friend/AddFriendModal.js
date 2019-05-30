@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal, Button, Form, InputGroup, FormControl } from 'react-bootstrap';
+import { Modal, Button, Form, InputGroup, FormControl, Spinner } from 'react-bootstrap';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faEye } from '@fortawesome/free-solid-svg-icons'
@@ -13,25 +13,52 @@ class AddFriendModal extends Component {
     this.handleShow = this.handleShow.bind(this);
     this.save = this.save.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.handleNameChange = this.handleNameChange.bind(this);
 
     this.state = {
       show: false,
+      saving: false,
+      model: {
+      }
     };
   }
 
   handleClose() {
-    this.setState({ show: false });
+    if (!this.state.saving)
+      this.setState({ show: false });
   }
 
   save() {
-    this.setState({ show: false });
+    this.setState({ saving: true });
+    setTimeout(() => {
+      this.setState({ show: false, saving: false });
+    }, 3000);
   }
 
   handleShow() {
     this.setState({ show: true });
   }
 
+  handleNameChange(event) {
+    this.setState({model : { name: event.target.value }});
+  }
+
   render() {
+
+    let saveButton = <Button disabled={!this.state.model.name} variant="success" onClick={this.save} type="submit">Save Changes</Button>;
+    if (this.state.saving) {
+      saveButton = (<Button variant="success" disabled>
+        <Spinner
+          as="span"
+          animation="grow"
+          size="sm"
+          role="status"
+          aria-hidden="true"
+        />
+        Saving <span className="text-primary">{this.state.model.name}</span>
+      </Button>);
+    }
+
     return (
       <>
         <button onClick={this.handleShow} className="b-float" data-toggle="tooltip" data-placement="top" title="Add Friend">
@@ -50,16 +77,13 @@ class AddFriendModal extends Component {
                   placeholder="Enter New Friend Name"
                   aria-label="Friend Name"
                   aria-describedby="name"
+                  onChange={this.handleNameChange}
                 />
               </InputGroup>
             </Modal.Body>
             <Modal.Footer>
-              <Button variant="secondary" onClick={this.handleClose}>
-                Close
-            </Button>
-              <Button variant="primary" onClick={this.save} type="submit">
-                Save Changes
-            </Button>
+              <Button disabled={this.state.saving} variant="secondary" onClick={this.handleClose}>Close</Button>
+              {saveButton}
             </Modal.Footer>
           </Modal>
         </Form>
