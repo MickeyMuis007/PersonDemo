@@ -22,7 +22,8 @@ class DeleteFriendModal extends Component {
   }
 
   handleClose() {
-    this.setState({ show: false });
+    if (!this.state.deleting)
+      this.setState({ show: false });
   }
 
   handleShow() {
@@ -49,7 +50,7 @@ class DeleteFriendModal extends Component {
           aria-hidden="true"
         />
         Deleting <span className="text-info">{this.state.name}</span>
-    </Button>);
+      </Button>);
     }
 
     return (

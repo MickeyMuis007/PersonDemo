@@ -22,7 +22,8 @@ class EditFriendModal extends Component {
   }
 
   handleClose() {
-    this.setState({ show: false });
+    if (!this.state.editing)
+      this.setState({ show: false });
   }
 
   handleShow() {
@@ -48,7 +49,7 @@ class EditFriendModal extends Component {
           aria-hidden="true"
         />
         Updating <span className="text-primary">{this.state.name}</span>
-    </Button>);
+      </Button>);
     }
 
     return (
