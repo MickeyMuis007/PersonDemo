@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { LinkContainer } from 'react-router-bootstrap';
 import Person from './Person';
 import PopularFriend from './Popular Friend/PopularFriend';
 import PopularTag from './Popular Tag/PopularTag';
@@ -130,17 +130,19 @@ class People extends Component {
     let personAddButton = null;
     if (this.state.persons.length > 0) {
       personAddButton = (
-        <Link to={'/add-person'}
-          onClick={this.getPersons}
-          className="float btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Add Person">
-          <FontAwesomeIcon icon="plus" />
-        </Link>
+        <LinkContainer to={'/add-person'}>
+          <button
+            onClick={this.getPersons}
+            className="float" data-toggle="tooltip" data-placement="top" title="Add Person">
+            <FontAwesomeIcon icon="plus" />
+          </button>
+        </LinkContainer>
       )
     }
 
     let loader = null;
     if (this.state.isLoading) {
-        loader = <Spinner animation="grow" />
+      loader = <Spinner animation="grow" />
     }
 
     return (
@@ -164,7 +166,7 @@ class People extends Component {
         </div>
         <div className="text-center">
           {loader}
-          </div>
+        </div>
         <div>
           {person}
           {popularFriends}
