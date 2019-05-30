@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import NavigationButtons from './Navigation Buttons/NavigationButtons';
 
 class Home extends Component {
   render() {
@@ -6,6 +7,7 @@ class Home extends Component {
     <div className="container text-center">
       <h1>Person Demo</h1>
       <h2>Welcome to People Demo</h2>
+      <NavigationButtons />
     </div>
     )
   }
