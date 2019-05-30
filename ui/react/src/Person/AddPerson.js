@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './AddPerson.css';
 import {
-  TextField, FormGroup, ExpansionPanel, Fab,
-  ExpansionPanelSummary, ExpansionPanelDetails, Typography
+  TextField, FormGroup, ExpansionPanel, Fab, FormLabel, Radio, RadioGroup, Button,
+  ExpansionPanelSummary, ExpansionPanelDetails, Typography, FormControl, FormControlLabel
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { LinkContainer } from 'react-router-bootstrap';
 
 
 class AddPerson extends Component {
@@ -18,15 +19,18 @@ class AddPerson extends Component {
           <TextField
             id="outlined-name"
             label="Name"
-            className="col-md-6"
+            className="col-md-6 mx-1"
             margin="normal"
             variant="outlined" />
-            <TextField
-            id="outlined-name"
-            label="Gender"
-            className="col-md-6"
-            margin="normal"
-            variant="outlined" />
+          <FormControl component="fieldset" className='text-dark col-md-5 mx-1'>
+            <FormLabel component="legend">Gender</FormLabel>
+            <RadioGroup
+              aria-label="Gender"
+              name="gender1">
+              <FormControlLabel value="female" control={<Radio />} label="Female" />
+              <FormControlLabel value="male" control={<Radio />} label="Male" />
+            </RadioGroup>
+          </FormControl>
           <FormGroup className="mb-3">
             <ExpansionPanel>
               <ExpansionPanelSummary
@@ -40,7 +44,7 @@ class AddPerson extends Component {
               <ExpansionPanelDetails >
                 <TextField
                   id="outlined-name"
-                  label="Friend"
+                  label="Add Friend"
                   margin="normal"
                   className="col-md-8"
                   variant="outlined" />
@@ -63,7 +67,7 @@ class AddPerson extends Component {
               <ExpansionPanelDetails>
                 <TextField
                   id="outlined-name"
-                  label="Tag"
+                  label="Add Tag"
                   className="col-md-8"
                   margin="normal"
                   variant="outlined" />
@@ -74,8 +78,10 @@ class AddPerson extends Component {
             </ExpansionPanel>
           </FormGroup>
           <div className="d-flex justify-content-end">
-            <Link to={'/people'} className="btn btn-primary mx-2 col-md-2" type="submit">Cancel</Link>
-            <button className="btn btn-success mx-2 col-md-2" type="submit">Add</button>
+            <LinkContainer to={'/people'}>
+              <Button variant="outlined" className="mx-2 col-md-2">Cancel</Button>
+              </LinkContainer>
+            <Button variant="outlined" color="primary" type="submit" className="mx-2 col-md-2">Save</Button>
           </div>
         </form>
       </div>
