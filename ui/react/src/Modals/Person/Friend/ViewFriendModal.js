@@ -3,7 +3,6 @@ import { Modal, Button } from 'react-bootstrap';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faEye } from '@fortawesome/free-solid-svg-icons'
-import './AddFriendModal.css';
 
 library.add(faPlus, faEye);
 

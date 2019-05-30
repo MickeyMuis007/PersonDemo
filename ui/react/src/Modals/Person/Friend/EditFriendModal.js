@@ -40,7 +40,7 @@ class EditFriendModal extends Component {
         <Form>
           <Modal show={this.state.show} onHide={this.handleClose}>
             <Modal.Header closeButton>
-              <Modal.Title>Edit {this.state.name}</Modal.Title>
+              <Modal.Title>Edit <span className="text-info">{this.state.name}</span></Modal.Title>
             </Modal.Header>
             <Modal.Body>
               <InputGroup className="mb-3">
