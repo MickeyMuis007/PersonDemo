@@ -3,13 +3,13 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash, faEye } from '@fortawesome/free-solid-svg-icons';
 import Popup from 'reactjs-popup';
+import ViewFriendModal from '../../Modals/Person/Friend/ViewFriendModal';
 
 library.add(faEdit, faTrash, faEye);
 const friend = (props) => {
   const friendName = props.friend ? props.friend.name || '' : '';
 
-  const viewFriendButton = (<button className="b-float btn-info" data-toggle="tooltip" data-placement="top"
-    title="View Friend"><FontAwesomeIcon icon="eye" /></button>);
+  const viewFriendButton = <ViewFriendModal name={friendName} />;
 
   const editFriendButton = (<button className="b-float btn-primary" data-toggle="tooltip" data-placement="top"
     title="Edit Friend"><FontAwesomeIcon icon="edit" /></button>);

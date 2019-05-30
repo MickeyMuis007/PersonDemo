@@ -4,8 +4,8 @@ import Tag from './Tag/Tag';
 import AddFriendModal from '../Modals/Person/Friend/AddFriendModal';
 import './Person.css';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus, faEye } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus, faEye } from '@fortawesome/free-solid-svg-icons';
 
 library.add(faPlus, faEye);
 
