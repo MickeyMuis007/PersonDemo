@@ -10,6 +10,7 @@ import AddPerson from './Person/AddPerson';
 import MaterialButtonDemo from './Material Demos/Button Demo/MaterialButtonDemo';
 import { LinkContainer } from 'react-router-bootstrap';
 import MaterialCheckboxDemo from './Material Demos/Checkboxes Demo/MaterialCheckboxDemo';
+import MaterialDrawerDemo from './Material Demos/Drawer Demo/MaterialDrawerDemo';
 
 class App extends Component {
   // set active state for hamburger
@@ -45,6 +46,9 @@ class App extends Component {
                     <LinkContainer to={'/material-checkbox-demo'}>
                       <NavDropdown.Item >Material Checkbox Demo</NavDropdown.Item>
                     </LinkContainer>
+                    <LinkContainer to={'/material-drawer-demo'}>
+                      <NavDropdown.Item >Material Drawer Demo</NavDropdown.Item>
+                    </LinkContainer>
                   </NavDropdown>
                 </Nav>
               </Navbar.Collapse>
@@ -59,6 +63,7 @@ class App extends Component {
               <Route path='/add-person' component={AddPerson} />
               <Route path='/material-button-demo' component={MaterialButtonDemo} />
               <Route path='/material-checkbox-demo' component={MaterialCheckboxDemo} />
+              <Route path="/material-drawer-demo" component={MaterialDrawerDemo} />
             </Switch>
           </div>
         </div>
