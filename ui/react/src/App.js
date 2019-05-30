@@ -1,48 +1,56 @@
 import React, { Component } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import Home from './Home/Home';
 import Friend from './Friend/Friend';
 import People from './Person/People';
 import AddFriend from './Person/Friend/AddFriend';
 import AddPerson from './Person/AddPerson';
 import MaterialButtonDemo from './Material Demos/Button Demo/MaterialButtonDemo';
-
+import { LinkContainer } from 'react-router-bootstrap';
 
 class App extends Component {
+  // set active state for hamburger
+  state = { active : false }
+
+  handleClick = () => { 
+     const { active } = this.state;
+     this.setState({ active: !active }); 
+  }
   render() {
     return (
       <Router>
         <div className="App">
           <header className="App-header">
-            <nav className="navbar navbar-expand-lg navbar-light bg-info">
-              <Link to={'/'} className="navbar-brand">Person Demo</Link>
-              <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span className="navbar-toggler-icon"></span>
-              </button>
-              <div className="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul className="navbar-nav">
-                  <li className="nav-item">
-                    <Link to={'/'} className="nav-link">Home <span className="sr-only">(current)</span></Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link to={'/people'} className="nav-link" href="#">People</Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link to={'/friend'} className="nav-link" href="#">Bootstrap Demo</Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link to={'/material-button-demo'} className="nav-link" href="#">Material Button Demo</Link>
-                  </li>
-                </ul>
-              </div>
-            </nav>
+            <Navbar bg="dark" variant="dark">
+              <Navbar.Brand><Link to={'/'} className="navbar-brand">Person Demo</Link></Navbar.Brand>
+              <Navbar.Toggle aria-controls="basic-navbar-nav" />
+              <Navbar.Collapse id="basic-navbar-nav">
+                <Nav className="mr-auto">
+                  <LinkContainer to={'/'}>
+                    <Nav.Link>Home</Nav.Link>
+                  </LinkContainer>
+                  <LinkContainer to={'/people'}>
+                    <Nav.Link>People</Nav.Link>
+                  </LinkContainer>
+                  <LinkContainer to={'/bootstrap-demo'}>
+                    <Nav.Link>Bootstrap Demo</Nav.Link>
+                  </LinkContainer>
+                  <NavDropdown title="Material Demo's" id="basic-nav-dropdown">
+                    <LinkContainer to={'/material-button-demo'}>
+                      <NavDropdown.Item >Material Button Demo</NavDropdown.Item>
+                    </LinkContainer>
+                  </NavDropdown>
+                </Nav>
+              </Navbar.Collapse>
+            </Navbar>
           </header>
           <div className="content">
             <Switch>
               <Route exact path='/' component={Home} />
               <Route path='/people' component={People} />
-              <Route path='/friend' component={Friend} />
+              <Route path='/bootstrap-demo' component={Friend} />
               <Route path='/add-friend' component={AddFriend} />
               <Route path='/add-person' component={AddPerson} />
               <Route path='/material-button-demo' component={MaterialButtonDemo} />
