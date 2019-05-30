@@ -6,6 +6,7 @@ import Friend from './Friend/Friend';
 import People from './Person/People';
 import AddFriend from './Person/Friend/AddFriend';
 import AddPerson from './Person/AddPerson';
+import MaterialButtonDemo from './Material Demos/Button Demo/MaterialButtonDemo';
 
 
 class App extends Component {
@@ -28,7 +29,10 @@ class App extends Component {
                     <Link to={'/people'} className="nav-link" href="#">People</Link>
                   </li>
                   <li className="nav-item">
-                    <Link to={'/friend'} className="nav-link" href="#">Friends</Link>
+                    <Link to={'/friend'} className="nav-link" href="#">Bootstrap Demo</Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link to={'/material-button-demo'} className="nav-link" href="#">Material Button Demo</Link>
                   </li>
                 </ul>
               </div>
@@ -41,6 +45,7 @@ class App extends Component {
               <Route path='/friend' component={Friend} />
               <Route path='/add-friend' component={AddFriend} />
               <Route path='/add-person' component={AddPerson} />
+              <Route path='/material-button-demo' component={MaterialButtonDemo} />
             </Switch>
           </div>
         </div>
