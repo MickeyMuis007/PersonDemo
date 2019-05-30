@@ -17,7 +17,7 @@ class EditTagModal extends Component {
 
     this.state = {
       show: false,
-      name: props ? props.name || '' : '',
+      tag: props ? props.tag || '' : '',
       editing: false
     };
   }
@@ -33,7 +33,7 @@ class EditTagModal extends Component {
 
   handleNameChange(event) {
     this.setState({
-      name: event.target.value
+      tag: event.target.value
     })
   }
 
@@ -55,7 +55,7 @@ class EditTagModal extends Component {
           role="status"
           aria-hidden="true"
         />
-        Updating <span className="text-primary">{this.state.name}</span>
+        Updating <span className="text-primary">{this.state.tag}</span>
       </Button>);
     }
 
@@ -66,17 +66,17 @@ class EditTagModal extends Component {
         <Form>
           <Modal show={this.state.show} onHide={this.handleClose}>
             <Modal.Header closeButton>
-              <Modal.Title>Edit <span className="text-info">{this.state.name}</span></Modal.Title>
+              <Modal.Title>Edit <span className="text-info">{this.state.tag}</span></Modal.Title>
             </Modal.Header>
             <Modal.Body>
               <InputGroup className="mb-3">
                 <InputGroup.Prepend>
-                  <InputGroup.Text id="name">Name</InputGroup.Text>
+                  <InputGroup.Text id="tag">Tag</InputGroup.Text>
                 </InputGroup.Prepend>
                 <FormControl
-                  placeholder="Update Friend Name"
-                  aria-label="Friend Name"
-                  aria-describedby="name"
+                  placeholder="Update Tag"
+                  aria-label="Tag Name"
+                  aria-describedby="tag"
                   onChange={this.handleNameChange}
                 />
               </InputGroup>
