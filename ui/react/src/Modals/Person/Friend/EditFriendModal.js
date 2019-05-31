@@ -18,7 +18,8 @@ class EditFriendModal extends Component {
     this.state = {
       show: false,
       name: props ? props.name || '' : '',
-      editing: false
+      editing: false,
+      person: props.person
     };
   }
 
@@ -66,7 +67,10 @@ class EditFriendModal extends Component {
         <Form>
           <Modal show={this.state.show} onHide={this.handleClose}>
             <Modal.Header closeButton>
-              <Modal.Title>Edit <span className="text-info">{this.state.name}</span></Modal.Title>
+              <Modal.Title>
+                <div>Main Friend: {this.state.person.name}</div>
+                <div>Edit <span className="text-info">{this.state.name}</span></div>
+              </Modal.Title>
             </Modal.Header>
             <Modal.Body>
               <InputGroup className="mb-3">
