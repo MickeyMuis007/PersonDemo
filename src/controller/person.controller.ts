@@ -42,13 +42,13 @@ export class PersonController {
 
    public addPerson = (req: any, res: any) => {
      const person = new Person(req.body);
-    //  person.add()
-    //  .then((person:any) => {
-    //    res.location(`${req.url}/${person._id}`).send({...person});
-    //  }).catch((err:any) => {
-    //    console.log(err);
-    //    res.status(500).send('Error Occurred');
-    //  });
+     person.addPerson()
+     .then((result : any) => {
+      res.send(result);
+    })
+    .catch((err: any) => {
+      console.log(err);
+    }); 
    }
 
    public addManyPeople = (req: any, res: any) => {
