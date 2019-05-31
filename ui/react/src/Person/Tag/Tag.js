@@ -1,16 +1,16 @@
 import React from 'react';
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons'
+import EditTagModal from '../../Modals/Person/Tags/EditTagModal';
+import DeleteTagModal from '../../Modals/Person/Tags/DeleteTagModal';
 
-library.add(faEdit, faTrash);
 
 const tag = (props) => {
+  const editTagButton = <EditTagModal tag={props.tag} />;
+  const deleteTagButton = <DeleteTagModal tag={props.tag} />
   return (
-    <li className="row mb-2">
-    <button className="b-float btn-primary" data-toggle="tooltip" data-placement="top" title="Edit Tag"><FontAwesomeIcon icon="edit" /></button>
-    <button className="b-float btn-danger" data-toggle="tooltip" data-placement="top" title="Delete Tag"><FontAwesomeIcon icon="trash" /></button>
-      <span className="col-md-3">{props.tag}</span> 
+    <li className="row mb-2 text-center text-primary">
+      {editTagButton}
+      {deleteTagButton}
+      <span className="col-md-3 text-white">{props.tag}</span>
     </li>
   )
 }
