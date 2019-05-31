@@ -5,7 +5,7 @@ const controller = require('../controllers/person.controller');
 
 const router = express.Router();
 
-const url = "/person";
+export const url = "/person";
 
 router.get(url, controller.getPersons);
 
