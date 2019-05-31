@@ -57,16 +57,16 @@ class People extends Component {
           const updateState = data => this.setState({...data, isLoading: false});
 
           return result.json().then(result => {
-            if (value.includes('/person')) {
+            if (value.includes('person')) {
               console.log('persons')
               updateState({persons: result.slice(1, 100)})
             }
-            if (value.includes('/popular-tag')) {
+            else if (value.includes('popular-tag')) {
               console.log('popular tags')
               console.log(result);
               updateState({ popularTags: result });
             }
-            if (value.includes('/most-popular-friend')) {
+            else if (value.includes('most-popular-friend')) {
               console.log('Most popular friend');
               console.log(result);
               updateState({ popularFriends: result, });
@@ -161,7 +161,7 @@ class People extends Component {
           {popularFriendsList}
           {popularTagsList}
         </div>
-        {persons.length && personAddButton}
+        {persons.length > 0 && personAddButton}
       </div>
     );
   }
