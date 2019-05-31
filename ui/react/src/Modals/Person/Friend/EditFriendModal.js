@@ -68,7 +68,7 @@ class EditFriendModal extends Component {
           <Modal show={this.state.show} onHide={this.handleClose}>
             <Modal.Header closeButton>
               <Modal.Title>
-                <div>Main Friend: {this.state.person.name}</div>
+                <div>{this.state.person.name}</div>
                 <div>Edit <span className="text-info">{this.state.name}</span></div>
               </Modal.Title>
             </Modal.Header>
