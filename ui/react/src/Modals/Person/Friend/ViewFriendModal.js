@@ -15,7 +15,8 @@ class ViewFriendModal extends Component {
 
     this.state = {
       show: false,
-      name: props ? props.name || '' : ''
+      name: props ? props.name || '' : '',
+      person: props.person
     };
   }
 
@@ -34,7 +35,7 @@ class ViewFriendModal extends Component {
           title="View Friend"><FontAwesomeIcon icon="eye" /></button>
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Friend</Modal.Title>
+            <Modal.Title><span className="text-primary">{this.state.person.name}`s</span> Friend:</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <h3 className="text-info">{this.state.name}</h3>

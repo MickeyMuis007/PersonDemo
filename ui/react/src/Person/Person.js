@@ -13,6 +13,7 @@ const person = (props) => {
       {friendList.map((friend, index) => {
         return <Friend
           friend={friend}
+          person={props.person}
           key={`${new Date().getTime() + index + friend.id}`}
         />
       })}
@@ -26,6 +27,7 @@ const person = (props) => {
         {tagList.map((tag, index) => {
           return <Tag
             tag={tag}
+            person={props.person}
             key={`${new Date().getTime() + index}`}
           />
         })}
@@ -43,16 +45,16 @@ const person = (props) => {
       <div className="container list-container">
         {friends}
         <div className="d-flex justify-content-end">
-        <AddFriendModal />
+          <AddFriendModal />
         </div>
-        
+
       </div>
 
       <div>Tags:</div>
       <div className="container list-container">
         {tags}
         <div className="d-flex justify-content-end">
-        <AddTagModal />
+          <AddTagModal />
         </div>
       </div>
 

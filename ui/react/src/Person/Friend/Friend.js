@@ -5,12 +5,13 @@ import DeleteFriendModal from '../../Modals/Person/Friend/DeleteFriendModal';
 
 const friend = (props) => {
   const friendName = props.friend ? props.friend.name || '' : '';
+  const person = props.person;
 
-  const viewFriendButton = <ViewFriendModal name={friendName} />;
+  const viewFriendButton = <ViewFriendModal name={friendName} person={person} />;
 
-  const editFriendButton = <EditFriendModal name={friendName} />;
+  const editFriendButton = <EditFriendModal name={friendName} person={person} />;
 
-  const deleteFriendButton = <DeleteFriendModal name={friendName} />;
+  const deleteFriendButton = <DeleteFriendModal name={friendName} person={person} />;
 
   return (
     <li className="row mb-2 text-primary text-center">
