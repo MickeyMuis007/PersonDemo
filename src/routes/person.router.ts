@@ -29,4 +29,4 @@ router.put("/add-color-field-to-collection", controller.addRandomColorToCollecti
 // Extract five records
 router.post("/extract", controller.extractFiveRecords);
 
-export { router as PersonRouter };
+export default router;

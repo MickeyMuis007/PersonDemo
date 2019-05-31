@@ -7,21 +7,18 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { Spinner } from 'react-bootstrap';
+import { classnames as classNames } from 'classnames';
 
 library.add(faPlus);
 
 class People extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      persons: [],
-      popularTags: [],
-      popularFriends: [],
-      filterSelection: '/person',
-      isLoading: false
-    }
+  state = {
+    persons: [],
+    popularTags: [],
+    popularFriends: [],
+    filterSelection: '/person',
+    isLoading: false
   }
-
 
   componentDidMount = () => {
     this.setState({
@@ -30,6 +27,7 @@ class People extends Component {
       popularFriends: [],
       isLoading: true
     });
+
     fetch('http://localhost:3001/person')
       .then(result => {
         if (result.ok) {
@@ -53,49 +51,41 @@ class People extends Component {
       popularFriends: [],
       isLoading: true
     });
-    fetch(`http://localhost:3001${value}`)
+    fetch(`http://localhost:3001/${value}`)
       .then(result => {
         if (result.ok) {
+          const updateState = data => this.setState({...data, isLoading: false});
+
           return result.json().then(result => {
             if (value.includes('/person')) {
               console.log('persons')
-              this.setState({
-                persons: result.slice(1, 100),
-                popularTags: [],
-                popularFriends: [],
-                isLoading: false
-              });
-            } else if (value.includes('/popular-tag')) {
+              updateState({persons: result.slice(1, 100)})
+            }
+            if (value.includes('/popular-tag')) {
               console.log('popular tags')
               console.log(result);
-              this.setState({
-                persons: [],
-                popularTags: result,
-                popularFriends: [],
-                isLoading: false
-              });
-            } else if (value.includes('/most-popular-friend')) {
+              updateState({ popularTags: result });
+            }
+            if (value.includes('/most-popular-friend')) {
               console.log('Most popular friend');
               console.log(result);
-              this.setState({
-                persons: [],
-                popularTags: [],
-                popularFriends: result,
-                isLoading: false
-              });
+              updateState({ popularFriends: result, });
             }
           });
         }
-      })
+      });
+
     this.setState({
       filterSelection: value
     })
   }
 
   render() {
+    const { persons, popularFriends, popularTags, filterSelection} = this.state;
+
     const person = (
       <div>
-        {this.state.persons.map((person) => {
+        {persons.map((person) => {
           return <Person
             person={person}
             filter={this.state.filterSelection}
@@ -105,9 +95,9 @@ class People extends Component {
       </div>
     );
 
-    const popularFriends = (
+    const popularFriendsList = (
       <div>
-        {this.state.popularFriends.map((friend) => {
+        {popularFriends.map((friend) => {
           return <PopularFriend
             friend={friend}
             key={friend.friend_name}
@@ -116,9 +106,9 @@ class People extends Component {
       </div>
     );
 
-    const popularTags = (
+    const popularTagsList = (
       <div>
-        {this.state.popularTags.map((tag, index) => {
+        {popularTags.map((tag, index) => {
           return <PopularTag
             popularTag={tag}
             key={tag.gender}
@@ -126,53 +116,52 @@ class People extends Component {
         })}
       </div>
     )
-
-    let personAddButton = null;
-    if (this.state.persons.length > 0) {
-      personAddButton = (
-        <LinkContainer to={'/add-person'}>
-          <button
-            onClick={this.getPersons}
-            className="float" data-toggle="tooltip" data-placement="top" title="Add Person">
-            <FontAwesomeIcon icon="plus" />
-          </button>
-        </LinkContainer>
-      )
-    }
-
-    let loader = null;
-    if (this.state.isLoading) {
-      loader = <Spinner animation="grow" />
-    }
-
+    const personAddButton = (
+      <LinkContainer to={'/add-person'}>
+        <button
+          onClick={this.getPersons}
+          className="float" data-toggle="tooltip" data-placement="top" title="Add Person">
+          <FontAwesomeIcon icon="plus" />
+        </button>
+      </LinkContainer>
+    )
+    // const setClasses = (matcher) => classNames({
+    //   'btn': true,
+    //   'btn-secondary': true,
+    //   active: filterSelection === matcher
+    // });
     return (
       <div className="container-fluid">
         <h1 className="text-center">People</h1>
         <div className="d-flex justify-content-center">
           <div className="btn-group btn-group-toggle" data-toggle="buttons">
-            <label className={this.state.filterSelection === '/person' ? 'btn btn-secondary active' : 'btn btn-secondary'}>
+            <label className={filterSelection === '/person' ? 'btn btn-secondary active' : 'btn btn-secondary'}>
               <input type="radio" name="options" id="option1" autoComplete="off"
-                onClick={() => this.filter('/person')} /> All</label>
-            <label className={this.state.filterSelection === '/popular-tag?gender=female' ? 'btn btn-secondary active' : 'btn btn-secondary'}>
+                onClick={() => this.filter('person')} /> All</label>
+            <label className={filterSelection === '/popular-tag?gender=female' ? 'btn btn-secondary active' : 'btn btn-secondary'}>
               <input type="radio" name="options" id="option2" autoComplete="off"
-                onClick={() => this.filter('/popular-tag?gender=female')} /> Most Popular Female Tags</label>
-            <label className={this.state.filterSelection === '/popular-tag?gender=male' ? 'btn btn-secondary active' : 'btn btn-secondary'}>
+                onClick={() => this.filter('popular-tag?gender=female')} /> Most Popular Female Tags</label>
+            <label className={filterSelection === '/popular-tag?gender=male' ? 'btn btn-secondary active' : 'btn btn-secondary'}>
               <input type="radio" name="options" id="option2" autoComplete="off"
-                onClick={() => this.filter('/popular-tag?gender=male')} /> Most Popular Male Tags</label>
-            <label className={this.state.filterSelection === '/most-popular-friend' ? 'btn btn-secondary active' : 'btn btn-secondary'}>
+                onClick={() => this.filter('popular-tag?gender=male')} /> Most Popular Male Tags</label>
+            <label className={filterSelection === '/most-popular-friend' ? 'btn btn-secondary active' : 'btn btn-secondary'}>
               <input type="radio" name="options" id="option3" autoComplete="off"
-                onClick={() => this.filter('/most-popular-friend')} /> Most Popular Friends</label>
+                onClick={() => this.filter('most-popular-friend')} /> Most Popular Friends</label>
           </div>
         </div>
-        <div className="text-center">
-          {loader}
-        </div>
+
+        {this.state.isLoading && 
+          <div className="text-center">
+            <Spinner animation="grow" />
+          </div>
+        }
+
         <div>
           {person}
-          {popularFriends}
-          {popularTags}
+          {popularFriendsList}
+          {popularTagsList}
         </div>
-        {personAddButton}
+        {persons.length && personAddButton}
       </div>
     );
   }
