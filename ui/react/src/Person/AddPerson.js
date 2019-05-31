@@ -10,6 +10,52 @@ import { LinkContainer } from 'react-router-bootstrap';
 
 
 class AddPerson extends Component {
+  constructor(props, context) {
+    super(props, context);
+
+    this.state = {
+      model: {
+        name: '',
+        gender: '',
+        friends: [],
+        tags: []
+      }
+    }
+
+    this.handleNameChange = this.handleNameChange.bind(this);
+    this.handleGenderChange = this.handleGenderChange.bind(this);
+  }
+
+  save() {
+
+  }
+
+  cancel() {
+
+  }
+
+  handleNameChange(event) {
+    console.log("Handle Name Change");
+    const updateModel = {...this.state.model};
+    updateModel.name = event.target.value;
+    this.setState({
+      model: updateModel
+    }, () => {
+      console.log(this.state.model);
+    });
+  }
+
+  handleGenderChange(event) {
+    console.log("Handle gender change");
+    const updateModel = {...this.state.model};
+    updateModel.gender = event.target.value;
+    this.setState({
+      model: updateModel
+    }, () => {
+      console.log(this.state.model);
+    });
+  }
+
   render() {
     return (
       <div>
@@ -20,12 +66,15 @@ class AddPerson extends Component {
             label="Name"
             className="col-md-6 mx-1"
             margin="normal"
-            variant="outlined" />
+            variant="outlined"
+            name="name"
+            onChange={this.handleNameChange} />
           <FormControl component="fieldset" className='text-dark col-md-5 mx-1'>
             <FormLabel component="legend">Gender</FormLabel>
             <RadioGroup
               aria-label="Gender"
-              name="gender1">
+              name="gender"
+              onChange={this.handleGenderChange}>
               <FormControlLabel value="female" control={<Radio />} label="Female" />
               <FormControlLabel value="male" control={<Radio />} label="Male" />
             </RadioGroup>
