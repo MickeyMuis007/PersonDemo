@@ -11,14 +11,15 @@ import MaterialButtonDemo from './Material Demos/Button Demo/MaterialButtonDemo'
 import { LinkContainer } from 'react-router-bootstrap';
 import MaterialCheckboxDemo from './Material Demos/Checkboxes Demo/MaterialCheckboxDemo';
 import MaterialDrawerDemo from './Material Demos/Drawer Demo/MaterialDrawerDemo';
+import Blog from './MDB/Sections/Blog';
 
 class App extends Component {
   // set active state for hamburger
-  state = { active : false }
+  state = { active: false }
 
-  handleClick = () => { 
-     const { active } = this.state;
-     this.setState({ active: !active }); 
+  handleClick = () => {
+    const { active } = this.state;
+    this.setState({ active: !active });
   }
   render() {
     return (
@@ -39,7 +40,7 @@ class App extends Component {
                   <LinkContainer to={'/bootstrap-demo'}>
                     <Nav.Link>Bootstrap Demo</Nav.Link>
                   </LinkContainer>
-                  <NavDropdown title="Material Demo's" id="basic-nav-dropdown">
+                  <NavDropdown title="Material Demo" id="basic-nav-dropdown">
                     <LinkContainer to={'/material-button-demo'}>
                       <NavDropdown.Item >Material Button Demo</NavDropdown.Item>
                     </LinkContainer>
@@ -49,6 +50,9 @@ class App extends Component {
                     <LinkContainer to={'/material-drawer-demo'}>
                       <NavDropdown.Item >Material Drawer Demo</NavDropdown.Item>
                     </LinkContainer>
+                  </NavDropdown>
+                  <NavDropdown title="MDB Demo">
+                    <LinkContainer to={'/mdb-section-blog'}><NavDropdown.Item>Sections Blog</NavDropdown.Item></LinkContainer>
                   </NavDropdown>
                 </Nav>
               </Navbar.Collapse>
@@ -64,6 +68,7 @@ class App extends Component {
               <Route path='/material-button-demo' component={MaterialButtonDemo} />
               <Route path='/material-checkbox-demo' component={MaterialCheckboxDemo} />
               <Route path="/material-drawer-demo" component={MaterialDrawerDemo} />
+              <Route path='/mdb-section-blog' component={Blog} />
             </Switch>
           </div>
         </div>
