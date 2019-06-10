@@ -11,7 +11,7 @@ import MaterialButtonDemo from './Material Demos/Button Demo/MaterialButtonDemo'
 import { LinkContainer } from 'react-router-bootstrap';
 import MaterialCheckboxDemo from './Material Demos/Checkboxes Demo/MaterialCheckboxDemo';
 import MaterialDrawerDemo from './Material Demos/Drawer Demo/MaterialDrawerDemo';
-import Blog from './MDB/Sections/Blog';
+import Blog from './MDB/Sections/Blog/Blog';
 
 class App extends Component {
   // set active state for hamburger
