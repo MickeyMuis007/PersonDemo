@@ -12,6 +12,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 import MaterialCheckboxDemo from './Material Demos/Checkboxes Demo/MaterialCheckboxDemo';
 import MaterialDrawerDemo from './Material Demos/Drawer Demo/MaterialDrawerDemo';
 import Blog from './MDB/Sections/Blog/Blog';
+import Contact from './MDB/Sections/Contact/Contact';
 
 class App extends Component {
   // set active state for hamburger
@@ -53,6 +54,7 @@ class App extends Component {
                   </NavDropdown>
                   <NavDropdown title="MDB Demo">
                     <LinkContainer to={'/mdb-section-blog'}><NavDropdown.Item>Sections Blog</NavDropdown.Item></LinkContainer>
+                    <LinkContainer to={'/mdb-section-contact'}><NavDropdown.Item>Sections Contact</NavDropdown.Item></LinkContainer>
                   </NavDropdown>
                 </Nav>
               </Navbar.Collapse>
@@ -69,6 +71,7 @@ class App extends Component {
               <Route path='/material-checkbox-demo' component={MaterialCheckboxDemo} />
               <Route path="/material-drawer-demo" component={MaterialDrawerDemo} />
               <Route path='/mdb-section-blog' component={Blog} />
+              <Route path='/mdb-section-contact' component={Contact} />
             </Switch>
           </div>
         </div>
